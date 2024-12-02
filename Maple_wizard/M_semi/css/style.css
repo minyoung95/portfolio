@@ -552,7 +552,11 @@ progress {
   flex-wrap: wrap;
   margin-top: calc(-1 * var(--bs-gutter-y));
   margin-right: calc(-.5 * var(--bs-gutter-x));
-  margin-left: calc(-.5 * var(--bs-gutter-x)); }
+  margin-left: calc(-.5 * var(--bs-gutter-x)); 
+
+  /* 콘텐츠 중앙정렬 추가 */
+  justify-content: center;
+}
   .row > * {
     -ms-flex-negative: 0;
     flex-shrink: 0;
@@ -1185,6 +1189,7 @@ progress {
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
     width: 66.66667%; }
+
   .col-lg-9 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
@@ -9853,7 +9858,10 @@ textarea {
   .section .heading {
     font-size: 46px;
     color: #343661;
-    font-weight: 700; }
+    font-weight: 700; 
+  
+    text-align: center;
+  }
     @media (max-width: 991.98px) {
       .section .heading {
         font-size: 30px; } }
