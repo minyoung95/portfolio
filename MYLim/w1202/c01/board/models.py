@@ -10,7 +10,7 @@ class Board(models.Model):
   b_hit = models.IntegerField(default=0)
   b_header = models.CharField(max_length=10)
   b_date = models.DateField(auto_now=True)
-  bfile = models.ImageField(blank=True, null=True,upload_to='board')
+  b_file = models.ImageField(blank=True, null=True,upload_to='board')
   
   def __str__(self):
     return f"{self.b_no},{self.b_title},{self.b_date}"
