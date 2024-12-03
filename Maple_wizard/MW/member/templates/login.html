@@ -31,6 +31,8 @@
 	<link rel="stylesheet" href="{% static 'css/glightbox.min.css' %}">
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<meta name="csrf-token" content="{{ csrf_token }}">
 
 	<title>Sterial &mdash; Free Bootstrap 5 Website Template by Untree.co </title>
 </head>
@@ -96,7 +98,7 @@
 
 	<div class="hero overlay">
 		<div class="img-bg rellax">
-			<img src="images/hero_2.jpg" alt="Image" class="img-fluid">
+			<img src="/static/images/hero_2.jpg" alt="Image" class="img-fluid">
 		</div>
 		<div class="container">
 			<div class="row align-items-center justify-content-start">
@@ -162,9 +164,9 @@
 								<textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
 							</div> -->
 							<div class="col-6 mb-3">
-								<input type="email" class="form-control" placeholder="Id">
+								<input type="text" id="id" class="form-control loginType" placeholder="Id">
 								<br>
-								<input type="email" class="form-control" placeholder="Password">
+								<input type="password" id="pw" class="form-control passType" placeholder="Password">
 								<br>
 							</div>
 <!-- 
@@ -174,9 +176,44 @@
 							<div class="col-12 mb-3">
 								<input type="text" class="form-control" placeholder="Password">
 							</div> -->
+							<script>
+								$(function(){
+									const csrfToken = $("meta[name='csrf-token']").attr("content");
+									$("#sBtn").click(function(){
+										//alert("로그인 진행"+$("#id").val()+$("#pw").val())
+										id = $("#id").val()
+										pw = $("#pw").val()
+
+										$.ajax({
+											headers:{"X-CSRFToken":csrfToken},
+											url:"/member/loginChk/",
+											type:"post",
+											data:{"id":id,"pw":pw},
+											success:function(data){
+												if (data.result == "success"){
+													alert("로그인이 되었습니다.")
+													location.href = "/"
+												}else{
+													alert("아이디 또는 패스워드가 일치하지 않습니다. 다시 입력하세요.")
+												}
+											},
+											error:function(){
+												alert("실패")
+											}
+										})//ajax
+
+										// input 초기화
+										$("#id").val("") //input에 빈공백추가
+										$("#pw").val("")
+										$("#id").focus()
+
+
+									})//btn
+								})//jquery
+							</script>
 							<div>
 								<div class=" mb-3_5">
-									<input type="submit" value="로그인" class="btn btn-primary dpchk">
+									<input type="submit" id="sBtn" value="로그인" class="btn btn-primary dpchk">
 								</div>
 							</div>
 						</div>
@@ -266,14 +303,14 @@
 		</div>
 
 
-		<script src="js/bootstrap.bundle.min.js"></script>
-		<script src="js/tiny-slider.js"></script>
-		<script src="js/aos.js"></script>
-		<script src="js/navbar.js"></script>
-		<script src="js/counter.js"></script>
-		<script src="js/rellax.js"></script>
-		<script src="js/flatpickr.js"></script>
-		<script src="js/glightbox.min.js"></script>
-		<script src="js/custom.js"></script>
+		<script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+		<script src="{% static 'js/tiny-slider.js'%}"></script>
+		<script src="{% static 'js/aos.js'%}"></script>
+		<script src="{% static 'js/navbar.js'%}"></script>
+		<script src="{% static 'js/counter.js'%}"></script>
+		<script src="{% static 'js/rellax.js'%}"></script>
+		<script src="{% static 'js/flatpickr.js'%}"></script>
+		<script src="{% static 'js/glightbox.min.js'%}"></script>
+		<script src="{% static 'js/custom.js'%}"></script>
 	</body>
 	</html>

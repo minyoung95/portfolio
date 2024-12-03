@@ -24,12 +24,12 @@ def loginChk(request):
   id = request.POST.get("id","")
   pw = request.POST.get("pw","")
   # db확인
-  qs = Member.objects.filter(id=id,pw=pw)
+  qs = Member.objects.filter(m_id=id,m_password=pw)
   print("확인 : ",id,pw)
   if qs:
     # 섹션추가
-    request.session['session_id'] = qs[0].id
-    request.session['session_nicName'] = qs[0].nicName
+    request.session['session_id'] = qs[0].m_id
+    request.session['session_nicName'] = qs[0].m_nickName
     list_qs = list(qs.values())
     context = {"result":"success","member":list_qs}  #dic,list타입
   else:
