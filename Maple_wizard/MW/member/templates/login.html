@@ -1,3 +1,4 @@
+{% load static %}
 <!-- /*
 * Template Name: Sterial
 * Template Author: Untree.co
@@ -21,21 +22,19 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="fonts/icomoon/style.css">
-	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-
-	<link rel="stylesheet" href="css/tiny-slider.css">
-	<link rel="stylesheet" href="css/aos.css">
-	<link rel="stylesheet" href="css/flatpickr.min.css">
-	<link rel="stylesheet" href="css/glightbox.min.css">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+	<link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/tiny-slider.css' %}">
+	<link rel="stylesheet" href="{% static 'css/aos.css' %}">
+	<link rel="stylesheet" href="{% static 'css/flatpickr.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/glightbox.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 
 	<title>Sterial &mdash; Free Bootstrap 5 Website Template by Untree.co </title>
 </head>
 <body>
-
-	
 
 	<div class="site-mobile-menu site-navbar-target">
 		<div class="site-mobile-menu-header">
@@ -102,31 +101,23 @@
 		<div class="container">
 			<div class="row align-items-center justify-content-start">
 				<div class="col-lg-6 mx-auto text-center">
-					<h1 class="heading" data-aos="fade-up">회원가입</h1>
-					<p data-aos="fade-up">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+					<h1 class="heading" data-aos="fade-up">Sign in</h1>
+					<p data-aos="fade-up">사이트에 로그인하세요</p>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-
-
-	<!-- Header -->
-
 
 	<div class="section">
 		<div class="container">
 			<div class="row">
 				<div class="col-12"	data-aos="fade-up" data-aos-delay="0">
 					
-					<h2 class="heading mb-5">정보 입력</h2>
+					<h2 class="heading mb-5">로그인</h2>
 				</div>
 			</div>
 			<div class="row">
-
-				<!-- 정보 아이콘 부분
-				<div class="col-lg-4 mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
+				<!-- <div class="col-lg-4 mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
 					<div class="contact-info">
 
 						<div class="address mt-4">
@@ -158,33 +149,35 @@
 
 					</div>
 				</div> -->
-
-
 				<div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
 					<form action="#">
 						<div class="row">
-							<div class="col-6 mb-3">
-								<label for="yourid">ID</label><input type="text" class="form-control" placeholder="Your Id" id="yourid">
-								<label for="yourid">ID</label><input type="text" class="form-control" placeholder="Your Id" id="yourid">
-								<label for="yourid">ID</label><input type="text" class="form-control" placeholder="Your Id" id="yourid">
+							<!-- <div class="col-6 mb-3">
+								<input type="text" class="form-control" placeholder="Your Name">
 							</div>
 							<div class="col-6 mb-3">
-								<label for="yourpw">PW</label><input type="email" class="form-control" placeholder="Your Password" id="yourpw">
-								<label for="yourpw">PW</label><input type="email" class="form-control" placeholder="Your Password" id="yourpw">
-								<label for="yourpw">PW</label><input type="email" class="form-control" placeholder="Your Password" id="yourpw">
+								<input type="email" class="form-control" placeholder="Your Email">
 							</div>
 							<div class="col-12 mb-3">
-								<label for="youremail">EMAIL</label><input type="text" class="form-control" placeholder="Email" id="youremail">
-								<label for="youremail">EMAIL</label><input type="text" class="form-control" placeholder="Email" id="youremail">
-								<label for="youremail">EMAIL</label><input type="text" class="form-control" placeholder="Email" id="youremail">
-								<label for="youremail">EMAIL</label><input type="text" class="form-control" placeholder="Email" id="youremail">
+								<textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+							</div> -->
+							<div class="col-6 mb-3">
+								<input type="email" class="form-control" placeholder="Id">
+								<br>
+								<input type="email" class="form-control" placeholder="Password">
+								<br>
+							</div>
+<!-- 
+							<div class="col-12 mb-3">
+								<input type="text" class="form-control" placeholder="Id">
 							</div>
 							<div class="col-12 mb-3">
-								<textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Your Address"></textarea>
-							</div>
-
-							<div class="col-12">
-								<input type="submit" value="회원 가입" class="btn btn-primary">
+								<input type="text" class="form-control" placeholder="Password">
+							</div> -->
+							<div>
+								<div class=" mb-3_5">
+									<input type="submit" value="로그인" class="btn btn-primary dpchk">
+								</div>
 							</div>
 						</div>
 					</form>
@@ -192,13 +185,6 @@
 			</div>
 		</div>
 	</div> <!-- /.untree_co-section -->
-
-
-
-
-
-
-	<!-- Footer 부분 -->
 
 	<div class="site-footer">
 		<div class="container">
