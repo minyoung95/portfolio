@@ -9,7 +9,7 @@ class Board(models.Model):
   b_content = models.TextField()
   b_hit = models.IntegerField(default=0)
   b_header = models.CharField(max_length=10)
-  b_date = models.DateField(auto_now=True)
+  b_date = models.DateTimeField(auto_now=True)
   b_file = models.ImageField(blank=True, null=True,upload_to='board')
   
   def __str__(self):

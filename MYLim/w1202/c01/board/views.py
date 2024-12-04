@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from board.models import Board
 from member.models import Member
+from comment.models import Comment
 from datetime import datetime
 from django.db.models import Q
 from django.core.paginator import Paginator # 페이지 넘버링
@@ -32,13 +33,13 @@ def bwrite(request):
   if request.method =="GET":
     return render(request,'bwrite.html')
   else:
-    # id = 'aaa'
-    # member = Member.objects.filter(id=id)
+    m_id = request.session['session_m_id']
+    member = Member.objects.get(m_id=m_id)
     b_title=request.POST.get("b_title")
     b_content=request.POST.get("b_content")
     b_file=request.FILES.get("b_file","")
     
-    qs = Board.objects.create(b_title=b_title,b_content=b_content,b_file=b_file)
+    qs = Board.objects.create(member=member,b_title=b_title,b_content=b_content,b_file=b_file)
     qs.save()
   
     context={'wmsg':"1"}
@@ -48,6 +49,7 @@ def bwrite(request):
 def bview(request,b_no):
   npage = request.GET.get('npage',1)
   qs = Board.objects.get(b_no=b_no)
+  c_qs = Comment.objects.filter(board=qs).order_by('c_no')
   
   ## 이전글, 다음글
   prev_qs = Board.objects.filter(b_no__lt=qs.b_no).order_by('-b_no').first()
@@ -57,7 +59,7 @@ def bview(request,b_no):
   day1 = datetime.replace(datetime.now(),hour=23,minute=59,second=59)
   expires = datetime.strftime(day1,'%a, %d-%b-%Y %H:%M:%S GMT')
   print('날짜 : ',expires)
-  context = {'board':qs, 'prev_board':prev_qs, 'next_board':next_qs, 'npage':npage}
+  context = {'board':qs, 'prev_board':prev_qs, 'next_board':next_qs, 'npage':npage, 'clist':c_qs}
   response = render(request,'bview.html',context)
   ## 쿠키확인
   if request.COOKIES.get('cookie_boardNo') is not None:
