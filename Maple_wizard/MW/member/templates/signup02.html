@@ -4,6 +4,7 @@
 * Tempalte URI: https://untree.co/
 * License: https://creativecommons.org/licenses/by/3.0/
 */ -->
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,14 +22,14 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="fonts/icomoon/style.css">
-	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<link rel="stylesheet" href="{% static 'fonts/icomoon/style.css'%}">
+	<link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css'%}">
 
-	<link rel="stylesheet" href="css/tiny-slider.css">
-	<link rel="stylesheet" href="css/aos.css">
-	<link rel="stylesheet" href="css/flatpickr.min.css">
-	<link rel="stylesheet" href="css/glightbox.min.css">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="{% static 'css/tiny-slider.css'%}">
+	<link rel="stylesheet" href="{% static 'css/aos.css'%}">
+	<link rel="stylesheet" href="{% static 'css/flatpickr.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/glightbox.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/style.css'%}">
 
 
 	<title>Sterial &mdash; Free Bootstrap 5 Website Template by Untree.co </title>
@@ -97,7 +98,7 @@
 
 	<div class="hero overlay">
 		<div class="img-bg rellax">
-			<img src="images/hero_2.jpg" alt="Image" class="img-fluid">
+			<img src="/static/images/hero_2.jpg" alt="Image" class="img-fluid">
 		</div>
 		<div class="container">
 			<div class="row align-items-center justify-content-start">
@@ -176,8 +177,9 @@
 							<div class="col-6 mb-3">
 								<label for="yourpw"></label><input type="email" class="form-control" placeholder="실명" id="yourpw">
 								<br>
-								<input type="submit" value="중복확인" class=" btn btn-primary">
+								<input type="submit" value="중복확인" id="dup" class=" btn btn-primary">
 								<br>
+								<label for="yourpw"></label><span class="form-control">비밀번호를 입력해주세요</span>
 								<label for="yourpw"></label><input type="email" class="form-control" placeholder="별명" id="yourpw">
 								<label for="yourpw"></label><input type="email" class="form-control" placeholder="비밀번호" id="yourpw">
 								<label for="yourpw"></label><input type="email" class="form-control" placeholder="비번 한번 더" id="yourpw">
@@ -198,7 +200,7 @@
 								<input type="submit" value="중복확인" class="btn btn-primary">
 							</div> -->
 							<div class="col-12">
-								<input type="submit" value="회원 가입" class="btn btn-primary dpchk">
+								<input type="submit" value="회원 가입" id="mon" class="btn btn-primary dpchk">
 							</div>
 						</div>
 					</form>
@@ -294,14 +296,14 @@
 		</div>
 
 
-		<script src="js/bootstrap.bundle.min.js"></script>
-		<script src="js/tiny-slider.js"></script>
-		<script src="js/aos.js"></script>
-		<script src="js/navbar.js"></script>
-		<script src="js/counter.js"></script>
-		<script src="js/rellax.js"></script>
-		<script src="js/flatpickr.js"></script>
-		<script src="js/glightbox.min.js"></script>
-		<script src="js/custom.js"></script>
+		<script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+		<script src="{% static 'js/tiny-slider.js'%}"></script>
+		<script src="{% static 'js/aos.js'%}"></script>
+		<script src="{% static 'js/navbar.js'%}"></script>
+		<script src="{% static 'js/counter.js'%}"></script>
+		<script src="{% static 'js/rellax.js'%}"></script>
+		<script src="{% static 'js/flatpickr.js'%}"></script>
+		<script src="{% static 'js/glightbox.min.js'%}"></script>
+		<script src="{% static 'js/custom.js'%}"></script>
 	</body>
 	</html>
