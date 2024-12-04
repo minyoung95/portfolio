@@ -32,11 +32,10 @@
 	<script type="text/javascript" src="{% static 'js/jquery.anchor.js'%}"></script>
 
 <script type="text/javascript">
-$(document).ready(function() {
-	
-
-
-});
+	if('{{dmsg}}' != ''){
+		alert('{{dmsg}}번 게시글이 삭제되었습니다.')
+		location.href='/board/blist/'
+	}
 </script>
 </head>
 <body>
