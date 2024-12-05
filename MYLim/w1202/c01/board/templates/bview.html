@@ -12,6 +12,7 @@
 	<meta name="csrf-token" content="{{ csrf_token }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css'%}">
   <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css'%}">
@@ -31,6 +32,7 @@
 	<script type="text/javascript" src="{% static 'js/jquery.easing.1.3.js'%}"></script>
 	<script type="text/javascript" src="{% static 'js/idangerous.swiper-2.1.min.js'%}"></script>
 	<script type="text/javascript" src="{% static 'js/jquery.anchor.js'%}"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style>a{cursor: pointer;}</style>
 <script type="text/javascript">
   function deleteBtn(){
@@ -175,6 +177,52 @@
 						</div>
 					</div>
 
+					<script>
+						$(function(){
+							$("#greatBtn").click(function(){
+								const csrfToken = $("meta[name='csrf-token']").attr("content");
+								let b_no = "{{board.b_no}}";
+								//ajax
+								$.ajax({
+									headers:{"X-CSRFToken":csrfToken},
+									url:"/board/likes/",
+									type:"post",
+									data:{"b_no":b_no},
+									success:function(data){
+										console.log("결과 data.result : "+data.result)
+
+										if(data.result == "remove"){
+											$('.g_count').text(data.count)
+										}else{
+											$('.g_count').text(data.count)
+										}							
+									},
+									error:function(){
+										alert("실패")
+									}
+								})//ajax
+							})
+						});
+
+					</script>
+
+					<!-- 좋아요 부분 -->
+					<div class="greatbox">
+						<a id='greatBtn'>
+							<div class="great">
+								<span id="thumbs_up"><i class="fa-regular fa-thumbs-up fa-3x"></i></span>
+								<p class="g_count">{{count}}</p>
+							</div>
+						</a>
+						<a id='badBtn'>
+							<div class="bad">
+								<span id="thumbs_down"><i class="fa-regular fa-thumbs-down fa-3x"></i></span>
+								<p class="b_count">싫어요</p>
+							</div>
+						</a>
+					</div>
+					<!-- //좋아요 부분-->
+
 					<!-- Btn Area -->
 					<div class="btnArea btline">
 						<div class="bRight">
@@ -209,7 +257,7 @@
 									data:{'c_pw':c_pw,'c_content':c_content},
 									success:function(data){
 										if(data.result == 'success'){
-											alert('하단댓글이 등록되었습니다.')
+											alert('댓글이 등록되었습니다.')
 
 											var datahtml = ""
 
@@ -238,36 +286,108 @@
 								})
 								$('.replynum').val('')
 								$('.replyType').val('')
+								console.log($('.replyBox').html());
 							}); // 댓글 입력
 
 							// 댓글 삭제
 							// 2. 댓글 삭제 (동적클릭)
 							// $('.dBtn').click(function(){}) : 처음불러온 데이터는 삭제 가능, 제이쿼리로 추가한 데이터는 삭제 불가(정적클릭)
 							$(document).on('click','.dBtn',function(){
-								let cno = $(this).closest('ul').attr('id');
-								if (confirm(cno+ '번 댓글을 삭제하시겠습니까?')){
+								let c_no = $(this).closest('ul').attr('id');
+								if (confirm(c_no+ '번 댓글을 삭제하시겠습니까?')){
 									// ajax 데이터 넘기기
 									$.ajax({
 										headers:{'X-CSRFToken':csrfToken},
 										url:'/comment/cdelete/',
 										type:'post',
-										data:{'cno':cno},
+										data:{'c_no':c_no},
 										success:function(data){
 											if(data.result == 'success'){
-												alert(cno+ '번 댓글이 삭제되었습니다.')
-												$('#'+cno).remove()
+												alert(c_no+ '번 댓글이 삭제되었습니다.')
+												$('#'+c_no).remove()
 												let cnt = $('#cnt').text()
 												$('#cnt').text((Number(cnt)-1)) 
 											}
 										},
 										error:function(){
-											alert('실패')
+											alert('삭제되지 않았습니다. 다시 시도해주세요.')
 										}
 									})
 								}
 								console.log($(this).closest('ul').attr('id'))
 							}); // 댓글 삭제
-						});
+
+							// 댓글 수정
+							$(document).on('click','.uBtn',function(){
+								let c_no = $(this).closest('ul').attr('id');
+								let m_id = '{{request.session.session_m_nickName}}';
+								let c_date = $(this).closest('ul').children('.name').children('span').text();
+								let c_content = $(this).closest('ul').children('.txt').text();
+
+								let datahtml = ""
+								datahtml += `<li class="name">${m_id} <span>${c_date}</span></li>`
+								datahtml += `<li class="txt"><textarea class="replyType">${c_content}</textarea></li>`
+								datahtml += `<li class="btn">`
+								datahtml += `<a class="sBtn rebtn">완료</a>&nbsp`
+								datahtml += `<a class="cBtn rebtn">취소</a>`
+								datahtml += `</li>`
+
+								$('#'+c_no).html(datahtml)
+							}); // 댓글 수정
+
+							// 댓글수정 취소
+							$(document).on('click','.cBtn',function(){
+								let c_no = $(this).closest('ul').attr('id');
+								let m_id = '{{request.session.session_m_nickName}}';
+								let c_date = $(this).closest('ul').children('.name').children('span').text();
+								let c_content = $(this).closest('ul').children('.txt').text();
+
+								let datahtml = ""
+
+								datahtml += `<li class="name">{{request.session.session_m_nickName}} <span>[${c_date}]</span></li>`
+								datahtml += `<li class="txt">${c_content}</li>`
+								datahtml += `<li class="btn">`
+								datahtml += `<a class="uBtn rebtn">수정</a>&nbsp`
+								datahtml += `<a class="dBtn rebtn">삭제</a>`
+								datahtml += `</li>`
+
+								$('#'+c_no).html(datahtml)
+							}); // 댓글수정 취소
+
+							// 댓글수정 저장
+							$(document).on('click','.sBtn',function(){
+								let c_no = $(this).closest('ul').attr('id');
+								let c_content = $(this).closest('ul').children('.txt').children('.replyType').val();
+
+								$.ajax({
+									headers:{'X-CSRFToken':csrfToken},
+									url:'/comment/cupdate/',
+									type:'post',
+									data:{'c_no':c_no,'c_content':c_content},
+									success:function(data){
+										if(data.result == 'success'){
+											alert('댓글 수정이 완료되었습니다.')
+
+											let datahtml = ""
+
+											datahtml += `<li class="name">{{request.session.session_m_nickName}} <span>[${data.comment[0].c_date}]</span></li>`
+											datahtml += `<li class="txt">${data.comment[0].c_content}</li>`
+											datahtml += `<li class="btn">`
+											datahtml += `<a class="uBtn rebtn">수정</a>&nbsp`
+											datahtml += `<a class="dBtn rebtn">삭제</a>`
+											datahtml += `</li>`
+
+											$('#'+c_no).html(datahtml)
+										}else{
+											alert('수정이 되지않았습니다. 다시 입력해주세요.')
+										}
+									},
+									error:function(){
+										alert('실패')
+									}
+								})
+							}); // 댓글수정 저장
+						}); // function
 
 					</script>
 
@@ -290,7 +410,7 @@
 							{% for comment in clist %}
 							<ul id='{{comment.c_no}}'>
 								<li class="name">{{comment.member.m_nickName}} <span>[{{comment.c_date|date:'Y-m-d H:i:s'}}]</span></li>
-								{% if request.session.session_m_id != comment.member.m_id and comment.c.pw != null %}
+								{% if request.session.session_m_id != comment.member.m_id and comment.c_pw != null %}
 									<li class="txt">
 										<a class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
 									</li>
