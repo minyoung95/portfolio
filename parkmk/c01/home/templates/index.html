@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="{% static 'css/flatpickr.min.css'%}">
   <link rel="stylesheet" href="{% static 'css/glightbox.min.css'%}">
   <link rel="stylesheet" href="{% static 'css/style.css'%}">
+  <link rel="stylesheet" href="{% static 'css/content.css'%}">
 	<!--폰트 스타일-->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,34 +27,8 @@
 	<!--폰트 스타일-->
 	<title>Sterial &mdash; Free Bootstrap 5 Website Template by Untree.co </title>
 	<style>
-		.t_table1, .t_table2  {
-			font-family: "Black Han Sans", serif;
-			font-size:25px;
-		}
-		.t_table1{
-			background-color: #F7F7F7;
-		}
-		#l_city {
-			width: 50%;
-			border-collapse: collapse;
-			margin: 20px auto;
-		}
-		#img_td {
-				width: 150px; /* 셀의 너비 */
-				height: 150px; /* 셀의 높이 */
-				text-align: center;
-		}
-		.t_img {
-				width: calc(100% - 20px); /* 셀 너비에서 좌우 여백만큼 크기 감소 */
-				height: calc(100% - 10px); /* 셀 높이에서 위아래 여백만큼 크기 감소 */
-				object-fit: cover; /* 이미지 비율 유지하면서 셀 채우기 */
-				margin: 10px; /* 상하좌우 여백 10px */
-		}
-		#title_icon{
-			margin: 15px 50% ;
-			
-		}
-</style>
+		
+	</style>
 </head>
 <body>
 
@@ -76,18 +51,18 @@
 					</div>
 					<div class="col-lg-6 d-none d-lg-inline-block text-center nav-center-wrap">
 						<ul class="js-clone-nav  text-center site-menu p-0 m-0">
-							<li class="active"><a href="index.html">Home</a></li>
-							<li><a href="about.html">About us</a></li>
+							<li class="active"><a href="/">Home</a></li>
+							<li><a href="/locate/ground/">지역</a></li>
 							<li class="has-children">
-								<a href="#">Dropdown</a>
+								<a href="#">즐길거리</a>
 								<ul class="dropdown">
-									<li><a href="#">Menu One</a></li>
+									<li><a href="/food/eat/">no</a></li>
 									<li class="has-children">
-										<a href="#">Menu Two</a>
+										<a href="#">먹거리</a>
 										<ul class="dropdown">
-											<li><a href="#">Sub Menu One</a></li>
-											<li><a href="#">Sub Menu Two</a></li>
-											<li><a href="#">Sub Menu Three</a></li>
+											<li><a href="/food/eat/">서울</a></li>
+											<li><a href="#">인천</a></li>
+											<li><a href="#">대구</a></li>
 										</ul>
 									</li>
 									<li><a href="#">Menu Three</a></li>
@@ -96,25 +71,20 @@
 							<li><a href="/admin/">admin관리자</a></li>
 							<li><a href="/board/bview/{{board.bview}}">상세보기</a></li>
 							<li><a href="/board/blist/">게시판</a></li>
-
 						</ul>
 					</div>
 					<div class="col-6 col-lg-3 text-lg-end">
 						<ul class="js-clone-nav d-none d-lg-inline-block text-end site-menu ">
 							<li class="cta-button"><a href="contact.html">Contact Us</a></li>
 						</ul>
-
 						<a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
 							<span></span>
 						</a>
 					</div>
 				</div>
 			</div>
-			
 		</div>
 	</nav>
-
-	
 
 	<div class="hero overlay">
 
@@ -149,14 +119,14 @@
 			<tbody>
 				<tr class="t_tr">
 					<td id="img_td"><a href ="/inside/up/"><img src="/static/images/서울.jpg" class = "t_img">서울</a></td>
-					<td id="img_td"><img src="/static/images/인천.jpg" class = "t_img">인천</td>
-					<td id="img_td"><img src="/static/images/대구.jpg" class = "t_img">대구</td>
-					<td id="img_td"><img src="/static/images/부산.jpg" class = "t_img">부산</td>
+					<td id="img_td"><a href=""><img src="/static/images/인천.jpg" class = "t_img">인천</a></td>
+					<td id="img_td"><a href=""><img src="/static/images/대구.jpg" class = "t_img">대구</a></td>
+					<td id="img_td"><a href=""><img src="/static/images/부산.jpg" class = "t_img">부산</a></td>
 				</tr>
 				<tr class="t_tr">
-					<td id="img_td"><img src="/static/images/광주.jpg" class = "t_img">광주</td>
-					<td id="img_td"><img src="/static/images/대전.jpg" class = "t_img">대전</td>
-					<td id="img_td"><img src="/static/images/울산.jpg" class = "t_img">울산</td>
+					<td id="img_td"><a href=""><img src="/static/images/광주.jpg" class = "t_img">광주</a></td>
+					<td id="img_td"><a href=""><img src="/static/images/대전.jpg" class = "t_img">대전</a></td>
+					<td id="img_td"><a href=""><img src="/static/images/울산.jpg" class = "t_img">울산</a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -165,18 +135,18 @@
 		<table id="l_city">
 			<tbody>
 				<tr class="t_tr">
-					<td id="img_td"><img src="/static/images/경기도.jpg" class = "t_img">경기도</td>
-					<td id="img_td"><img src="/static/images/강원도.jpg" class = "t_img">강원도</td>
-					<td id="img_td"><img src="/static/images/충청북도.jpg" class = "t_img">충청북도</td>
-					<td id="img_td"><img src="/static/images/충청남도.jpg" class = "t_img">충청남도</td>
-					<td id="img_td"><img src="/static/images/전라북도.jpg" class = "t_img">전라북도</td>
-			</tr>
-			<tr class="t_tr">
-					<td id="img_td"><img src="/static/images/전라남도.jpg" class = "t_img">전라남도</td>
-					<td id="img_td"><img src="/static/images/경상남도.jpg" class = "t_img">경상남도</td>
-					<td id="img_td"><img src="/static/images/경상북도.jpg" class = "t_img">경상북도</td>
-					<td id="img_td"><img src="/static/images/제주도.jpg" class = "t_img">제주도</td>
-			</tr >
+					<td id="img_td"><a href=""><img src="/static/images/경기도.jpg" class = "t_img">경기도</a></td>
+					<td id="img_td"><a href=""><img src="/static/images/강원도.jpg" class = "t_img">강원도</a></td>
+					<td id="img_td"><a href=""><img src="/static/images/충청북도.jpg" class = "t_img">충청북도</a></td>
+					<td id="img_td"><a href=""><img src="/static/images/충청남도.jpg" class = "t_img">충청남도</a></td>
+					<td id="img_td"><a href=""><img src="/static/images/전라북도.jpg" class = "t_img">전라북도</a></td>
+				</tr>
+				<tr class="t_tr">
+					<td id="img_td"><a href=""><img src="/static/images/전라남도.jpg" class = "t_img">전라남도</a></td>
+					<td id="img_td"><a href=""><img src="/static/images/경상남도.jpg" class = "t_img">경상남도</a></td>
+					<td id="img_td"><a href=""><img src="/static/images/경상북도.jpg" class = "t_img">경상북도</a></td>
+					<td id="img_td"><a href=""><img src="/static/images/제주도.jpg" class = "t_img">제주도</a></td>
+				</tr >
 			</tbody>
 		</table>
 	</div>
