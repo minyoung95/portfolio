@@ -8,6 +8,7 @@ urlpatterns = [
     path('',include('home.urls')),
     path('board/',include('board.urls')),
     path('member/',include('member.urls')),
+    path('comment/',include('comment.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

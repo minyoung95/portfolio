@@ -199,7 +199,7 @@
 													</ul>
 											</td>
 									</tr>
-									
+																		
 									<!-- 제목 -->
 									<tr>
 											<th  scope="row"><span>제목</span></th>
@@ -207,6 +207,14 @@
 													<input type="text" name="b_title" class="wlong" id = 'b_title' />
 											</td>
 									</tr>
+
+									{% comment %} <!-- 작성자 -->
+									<tr>
+										<th  scope="row"><span>작성자</span></th>
+										<td>
+												{{request.session.session_m_nickName}}
+										</td>
+								</tr> {% endcomment %}
 									
 									<!-- 상세 내용 -->
 									<tr>
@@ -217,11 +225,11 @@
 											</td>
 									</tr>
 									
-									<!-- 작은 이미지 -->
+									<!-- 이미지 파일 -->
 									<tr>
-										<th scope="row"><span>작은이미지</span></th>
+										<th scope="row"><span>이미지 파일</span></th>
 										<td>
-												<input type="file" name="b_file" class="fileType" onchange="readURL(this)" />
+												<input type="file" name="b_file" class="fileType" onchange="readURL(this)">
 										</td>
 								</tr>
 								<!-- 이미지 미리보기 -->
@@ -270,8 +278,8 @@
 						<div class="btnArea">
 							<div class="bCenter">
 								<ul>																
-									<li><a onclick="javascript:location.href='/board/blist'" class="nbtnbig">취소</a></li>
 									<li><a class="sbtnMini" >확인</a></li>
+									<li><a onclick="javascript:location.href='/board/blist/'" class="nbtnbig">취소</a></li>
 								</ul>
 							</div>
 						</form>

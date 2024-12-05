@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
 from board.models import Board
 from member.models import Member
+from comment.models import Comment
 from datetime import datetime
 from django.db.models import Q
 from django.core.paginator import Paginator # 페이지 넘버링
+import os
+from django.conf import settings
 
-# Create your views here.
+### 게시판 리스트
 def blist(request):
   npage = int(request.GET.get('npage',1))
   qs = Board.objects.all().order_by('-b_no')
@@ -25,24 +28,28 @@ def blist(request):
   context = {'blist':blist,'npage':npage,'cl':cl,'searchType':searchType}
   return render(request,'blist.html',context)
 
+### 게시판 글쓰기
 def bwrite(request):
   if request.method =="GET":
     return render(request,'bwrite.html')
   else:
-    # id = 'aaa'
-    # member = Member.objects.filter(id=id)
+    m_id = request.session['session_m_id']
+    member = Member.objects.get(m_id=m_id)
     b_title=request.POST.get("b_title")
     b_content=request.POST.get("b_content")
     b_file=request.FILES.get("b_file","")
-    print("파일정보 : ",b_file)
-    qs = Board.objects.create(b_title=b_title,b_content=b_content,b_file=b_file)
+    
+    qs = Board.objects.create(member=member,b_title=b_title,b_content=b_content,b_file=b_file)
+    qs.save()
   
     context={'wmsg':"1"}
     return render(request, 'bwrite.html',context)
-  
+
+### 게시판 글보기
 def bview(request,b_no):
   npage = request.GET.get('npage',1)
   qs = Board.objects.get(b_no=b_no)
+  c_qs = Comment.objects.filter(board=qs).order_by('c_no')
   
   ## 이전글, 다음글
   prev_qs = Board.objects.filter(b_no__lt=qs.b_no).order_by('-b_no').first()
@@ -52,7 +59,7 @@ def bview(request,b_no):
   day1 = datetime.replace(datetime.now(),hour=23,minute=59,second=59)
   expires = datetime.strftime(day1,'%a, %d-%b-%Y %H:%M:%S GMT')
   print('날짜 : ',expires)
-  context = {'board':qs, 'prev_board':prev_qs, 'next_board':next_qs, 'npage':npage}
+  context = {'board':qs, 'prev_board':prev_qs, 'next_board':next_qs, 'npage':npage, 'clist':c_qs}
   response = render(request,'bview.html',context)
   ## 쿠키확인
   if request.COOKIES.get('cookie_boardNo') is not None:
@@ -70,3 +77,38 @@ def bview(request,b_no):
     qs.b_hit += 1
     qs.save() 
   return response
+
+### 게시판 글 수정
+def bupdate(request,b_no):
+  if request.method == 'GET':
+    qs = Board.objects.get(b_no=b_no)
+    context = {'board':qs}
+    return render(request,'bupdate.html',context)
+  else:
+    b_no = request.POST.get('b_no')
+    b_title = request.POST.get('b_title')
+    b_content = request.POST.get('b_content')
+    b_file = request.FILES.get('b_file')
+    delete_image = request.POST.get('delete_image')
+    qs = Board.objects.get(b_no=b_no)
+    
+    if delete_image:  # 이미지 삭제 체크박스가 체크되었을 경우
+      if qs.b_file:
+        image_path = os.path.join(settings.MEDIA_ROOT, qs.b_file.name)
+        if os.path.exists(image_path):  # 파일이 존재하면 삭제
+          os.remove(image_path)
+          qs.b_file = None  # 모델 필드 값 초기화
+      
+    qs.b_title = b_title
+    qs.b_content = b_content
+    if b_file:
+      qs.b_file=b_file
+    qs.save()
+    context = {'umsg':b_no}
+    return render(request,'bupdate.html',context)
+
+### 게시판 글 삭제
+def bdelete(request,b_no):
+  Board.objects.get(b_no=b_no).delete()
+  context = {'dmsg':b_no}
+  return render(request,'blist.html',context)
