@@ -19,15 +19,54 @@
   <link rel="stylesheet" href="{% static 'css/flatpickr.min.css'%}">
   <link rel="stylesheet" href="{% static 'css/glightbox.min.css'%}">
   <link rel="stylesheet" href="{% static 'css/style.css'%}">
-  <link rel="stylesheet" href="{% static 'css/content.css'%}">
-	<!--폰트 스타일-->
+  <link rel="stylesheet" href="{% static 'css/content.css'%}"> <!--새로 추가 해야 됨-->
+
+  <!--폰트 스타일-->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Pen+Script&family=Parkinsans:wght@300..800&family=Yuji+Mai&display=swap" rel="stylesheet">
 	<!--폰트 스타일-->
+
 	<title>Sterial &mdash; Free Bootstrap 5 Website Template by Untree.co </title>
+
 	<style>
-		
+  .food_div {
+      font-family: "Black Han Sans", serif;
+      margin-top: 300px;
+      margin-bottom: 400px;
+    }   
+
+  #food_table{
+      margin: 20px auto;
+    }
+
+  .food_img {
+    width: 300px; /* 원하는 너비로 설정 */
+    height: 300px; /* 원하는 높이로 설정 */
+    object-fit: cover; /* 비율을 유지하면서 크기에 맞게 자르기 */
+    display: block; /* 이미지를 블록 요소로 설정 (가운데 정렬 시 유용) */
+    margin: 0 auto; /* 이미지 가운데 정렬 */
+    
+  }
+
+  #food_td {
+    
+    padding: 10px;
+    font-size: 30px;
+    text-align: center;
+  }
+
+  #kfood{
+    font-family: "Nanum Pen Script", cursive;
+    font-size: 50px;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 180px;
+  }
 	</style>
 </head>
 <body>
@@ -43,26 +82,25 @@
 
 	<nav class="site-nav mt-3">
 		<div class="container">
-
 			<div class="site-navigation">
 				<div class="row">
 					<div class="col-6 col-lg-3">
-						<a href="index.html" class="logo m-0 float-start">Sterial</a>
+						<a href="/" class="logo m-0 float-start">Sterial</a>
 					</div>
 					<div class="col-lg-6 d-none d-lg-inline-block text-center nav-center-wrap">
 						<ul class="js-clone-nav  text-center site-menu p-0 m-0">
 							<li class="active"><a href="/">Home</a></li>
-							<li><a href="/locate/ground/">지역</a></li>
+							<li><a href="about.html">About us</a></li>
 							<li class="has-children">
 								<a href="#">즐길거리</a>
 								<ul class="dropdown">
-									<li><a href="/food/eat/">no</a></li>
+									<li><a href="#">???</a></li>
 									<li class="has-children">
 										<a href="#">먹거리</a>
 										<ul class="dropdown">
-											<li><a href="/food/eat/">서울</a></li>
-											<li><a href="#">인천</a></li>
-											<li><a href="#">대구</a></li>
+											<li><a href="#">Sub Menu One</a></li>
+											<li><a href="#">Sub Menu Two</a></li>
+											<li><a href="#">Sub Menu Three</a></li>
 										</ul>
 									</li>
 									<li><a href="#">Menu Three</a></li>
@@ -71,12 +109,14 @@
 							<li><a href="/admin/">admin관리자</a></li>
 							<li><a href="/board/bview/{{board.bview}}">상세보기</a></li>
 							<li><a href="/board/blist/">게시판</a></li>
+
 						</ul>
 					</div>
 					<div class="col-6 col-lg-3 text-lg-end">
 						<ul class="js-clone-nav d-none d-lg-inline-block text-end site-menu ">
 							<li class="cta-button"><a href="contact.html">Contact Us</a></li>
 						</ul>
+
 						<a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
 							<span></span>
 						</a>
@@ -86,75 +126,56 @@
 		</div>
 	</nav>
 
+	
+
 	<div class="hero overlay">
 
 		<div class="img-bg rellax">
-			<img src="/static/images/hero_1.jpg" alt="Image" class="img-fluid">
+			<img src="/static/images/먹거리배경.jpg" alt="Image" class="img-fluid">
 		</div>
 
 		<div class="container">
 			<div class="row align-items-center justify-content-start">
 				<div class="col-lg-5">
-
-					<h1 class="heading" data-aos="fade-up">It's a Big World Out There, Go Explore</h1>
-					<p class="mb-5" data-aos="fade-up">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-
-					<div data-aos="fade-up">
-						<a href="https://www.youtube.com/watch?v=5n-e6lOhVq0" class="play-button align-items-center d-flex glightbox3" >
-							<span class="icon-button me-3">
-								<span class="icon-play"></span>
-							</span>
-							<span class="caption">Watch Video</span>
-						</a>
-					</div>
+					<h1 class="heading" data-aos="fade-up">대표음식</h1>
+					<p class="mb-5" data-aos="fade-up">광고 받습니다.</p>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 	<div id = title_icon>
 		<img src="/static/images/favicon.png">
 	</div>
-	<div class="t_table1" >
-		<table id="l_city">
-			<tbody>
-				<tr class="t_tr">
-					<td id="img_td"><a href ="/inside/up/"><img src="/static/images/서울.jpg" class = "t_img">서울</a></td>
-					<td id="img_td"><a href=""><img src="/static/images/인천.jpg" class = "t_img">인천</a></td>
-					<td id="img_td"><a href=""><img src="/static/images/대구.jpg" class = "t_img">대구</a></td>
-					<td id="img_td"><a href=""><img src="/static/images/부산.jpg" class = "t_img">부산</a></td>
-				</tr>
-				<tr class="t_tr">
-					<td id="img_td"><a href=""><img src="/static/images/광주.jpg" class = "t_img">광주</a></td>
-					<td id="img_td"><a href=""><img src="/static/images/대전.jpg" class = "t_img">대전</a></td>
-					<td id="img_td"><a href=""><img src="/static/images/울산.jpg" class = "t_img">울산</a></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<div class="t_table2">
-		<table id="l_city">
-			<tbody>
-				<tr class="t_tr">
-					<td id="img_td"><a href=""><img src="/static/images/경기도.jpg" class = "t_img">경기도</a></td>
-					<td id="img_td"><a href=""><img src="/static/images/강원도.jpg" class = "t_img">강원도</a></td>
-					<td id="img_td"><a href=""><img src="/static/images/충청북도.jpg" class = "t_img">충청북도</a></td>
-					<td id="img_td"><a href=""><img src="/static/images/충청남도.jpg" class = "t_img">충청남도</a></td>
-					<td id="img_td"><a href=""><img src="/static/images/전라북도.jpg" class = "t_img">전라북도</a></td>
-				</tr>
-				<tr class="t_tr">
-					<td id="img_td"><a href=""><img src="/static/images/전라남도.jpg" class = "t_img">전라남도</a></td>
-					<td id="img_td"><a href=""><img src="/static/images/경상남도.jpg" class = "t_img">경상남도</a></td>
-					<td id="img_td"><a href=""><img src="/static/images/경상북도.jpg" class = "t_img">경상북도</a></td>
-					<td id="img_td"><a href=""><img src="/static/images/제주도.jpg" class = "t_img">제주도</a></td>
-				</tr >
-			</tbody>
-		</table>
-	</div>
 
+  <div class="food_div" >
+    <div>
+      <h2 id ="kfood">※ 코리안 트레디셔널 푸드 ※</h2>
+    </div>
+    <table id="food_table">
+      
+			<tbody>
+				<tr class="food_tr">
+					<td id="food_td"><a href ="/food/niku/"><img src="/static/images/불고기.jpg" class = "food_img">불고기</a></td>
+					<td id="food_td"><a href= ""><img src="/static/images/비빔밥.jpg" class = "food_img">비빔밥</a></td>
+					<td id="food_td"><a href= ""><img src="/static/images/삼겹살.jpg" class = "food_img">삼겹살</a></td>
+				</tr>
+				<tr class="food_tr">
+          <td id="food_td"><a href= ""><img src="/static/images/갈비.png" class = "food_img">갈비</a></td>
+					<td id="food_td"><a href =""><img src="/static/images/김치.png" class = "food_img">김치</a></td>
+					<td id="food_td"><a href= ""><img src="/static/images/된장찌개.jpg" class = "food_img">된장찌개</a></td>
+				</tr>
+				<tr class="food_tr">
+          <td id="food_td"><a href= ""><img src="/static/images/한우.jpg" class = "food_img">한우</a></td>
+          <td id="food_td"><a href= ""><img src="/static/images/삼계탕.jpg" class = "food_img">삼계탕</a></td>
+					<td id="food_td"><a href =""><img src="/static/images/국수.jpg" class = "food_img">국수</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
 	<div class="site-footer">
 		<div class="container">
-
 			<div class="row">
 				<div class="col-lg-4">
 					<div class="widget">
