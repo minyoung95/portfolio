@@ -10526,6 +10526,8 @@ textarea {
         color: #fff; }
 
 
+
+/*         css 변경사항        */     
 .dcchk {
   width: 100px;
   vertical-align: middle;
@@ -10561,4 +10563,27 @@ p.agreebox{
 
 .form-control, .custom-select{
   margin-bottom: -10px;
+}
+
+#dup {
+  margin-bottom: -9px;
+}
+
+#mon {
+  margin-top: 9px;
+}
+
+span.typex {
+  border: none;
+}
+
+.gdst{
+  font: caption;
+  display: flex;
+  align-items: center;
+  padding-top: 6px;
+}
+
+.gdst>label{
+  margin-right: 15px;
 }

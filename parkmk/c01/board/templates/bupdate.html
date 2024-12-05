@@ -50,21 +50,21 @@
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
 	<!--썸머노트 스크립트-->
 	<script>
-		if ('{{wmsg}}'!='') {
-			alert("게시글이 입력 되었습니다.")
-			location.href="/board/blist/"
+		if ('{{umsg}}'!='') {
+			alert("게시글이 수정되었습니다.")
+			location.href="/board/bview/{{umsg}}/"
 		}
 
-		$(function(){
+		 $(function(){
       $(".sbtnMini").click(function(){
         if($("#b_title").val().length<2){
-          alert("게시글 제목을 작성해 주세요")
+          alert("제목은 2자리 이상 입력하셔야 수정이 가능합니다.");
           $("#b_title").focus()
           return false;
         }
-        writeFrm.submit()
-      })
-    })
+        updateFrm.submit()
+      });
+    });
 	</script>
 </head>
 <body>
@@ -173,11 +173,11 @@
 			<!-- contents -->
 			<div id="contents">
 				<div id="mypage">
-					<h2><strong>게시글 작성</strong></h2>
+					<h2><strong>게시글 수정</strong></h2>
 					
 					
 					<div class="checkDivTab">
-						<form action="/board/bwrite/" name="writeFrm" method="post" enctype="multipart/form-data">	
+						<form action="" name="updateFrm" method="post" enctype="multipart/form-data">	
 							{% csrf_token %}
 							<table summary="분류, 구매여부, 평가, 제목, 상세 내용 순으로 상품평을 작성 하실수 있습니다." class="checkTable" border="1" cellspacing="0">
 								<caption>상품평 작성</caption>
@@ -204,7 +204,7 @@
 									<tr>
 											<th  scope="row"><span>제목</span></th>
 											<td>
-													<input type="text" name="b_title" class="wlong" id = 'b_title' />
+													<input type="text" name="b_title" class="wlong" id = 'b_title' value={{board.b_title}}>
 											</td>
 									</tr>
 									
@@ -213,43 +213,45 @@
 											<th scope="row"><span>상세 내용</span></th>
 											<td>
 													<!-- summernote를 위한 textarea -->
-													<textarea id="summernote" name="b_content"></textarea>
+													<textarea id="summernote" name="b_content">{{board.b_content}}</textarea>
 											</td>
 									</tr>
 									
-									<!-- 작은 이미지 -->
+									<!-- 이미지 파일 업로드 -->
 									<tr>
-										<th scope="row"><span>작은이미지</span></th>
+										<th scope="row"><span>이미지 파일명</span></th>
 										<td>
 												<input type="file" name="b_file" class="fileType" onchange="readURL(this)" />
 										</td>
-								</tr>
-								<!-- 이미지 미리보기 -->
-								<tr>
+									</tr>
+
+									<!-- 이미지 미리보기 -->
+									<tr>
 										<th><span>이미지</span></th>
-										<td id='txt'>
-												<img id="preview" style="width:200px; display: none; border: 1px solid #ccc;" alt="이미지 미리보기">
+										<td id="txt">
+												<img 
+														src="{% if board.b_file %}{{ board.b_file.url }}{% endif %}" 
+														id="preview" 
+														style="width:200px; border: 1px solid #ccc; {% if not board.b_file %}display: none;{% endif %}" 
+														alt="이미지 미리보기"
+												>
 										</td>
-								</tr>
+									</tr>
 							</tbody>
 							
 							<script>
-								//이미지 미리보기
+								// 이미지 미리보기 스크립트
 								function readURL(input) {
+									const preview = document.getElementById('preview');
 									if (input.files && input.files[0]) {
-											var reader = new FileReader(); // FileReader 객체 생성
-											reader.onload = function(e) {
-													const preview = document.getElementById('preview');
-													preview.src = e.target.result; // 이미지 데이터를 미리보기로 설정
-													preview.style.display = 'block'; // 이미지 요소 표시
+											const reader = new FileReader();
+											reader.onload = function (e) {
+													preview.src = e.target.result;
+													preview.style.display = 'block'; // 새 이미지 선택 시 미리보기 표시
 											};
-											reader.readAsDataURL(input.files[0]); // 파일을 DataURL로 읽음
-									} else {
-											const preview = document.getElementById('preview');
-											preview.src = ""; // 이미지 초기화
-											preview.style.display = 'none'; // 이미지 숨기기
+											reader.readAsDataURL(input.files[0]);
 									}
-							}
+								}
 
 								//Summernote 초기화 스크립트
 									$(document).ready(function() {
@@ -271,7 +273,7 @@
 							<div class="bCenter">
 								<ul>																
 									<li><a onclick="javascript:location.href='/board/blist'" class="nbtnbig">취소</a></li>
-									<li><a class="sbtnMini" >확인</a></li>
+									<li><a class="sbtnMini">확인</a></li>
 								</ul>
 							</div>
 						</form>

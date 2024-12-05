@@ -3,7 +3,7 @@ from member.models import Member
 from datetime import datetime
 
 class Board(models.Model):
-  b_no = models.IntegerField(default=1)
+  b_no = models.AutoField(primary_key=True)
   member = models.ForeignKey(Member,on_delete=models.DO_NOTHING, null=True)
   b_title = models.CharField(max_length=30)
   b_content = models.CharField(max_length=1000)
