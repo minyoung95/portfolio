@@ -1,10 +1,5 @@
 {% load static %}
-<!-- /*
-* Template Name: Sterial
-* Template Author: Untree.co
-* Tempalte URI: https://untree.co/
-* License: https://creativecommons.org/licenses/by/3.0/
-*/ -->
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -119,76 +114,30 @@
 				</div>
 			</div>
 			<div class="row">
-				<!-- <div class="col-lg-4 mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
-					<div class="contact-info">
-
-						<div class="address mt-4">
-							<i class="icon-room"></i>
-							<h4 class="mb-2">Location:</h4>
-							<p>43 Raymouth Rd. Baltemoer, London 3910</p>
-						</div>
-
-						<div class="open-hours mt-4">
-							<i class="icon-clock-o"></i>
-							<h4 class="mb-2">Open Hours:</h4>
-							<p>
-								Sunday-Friday:<br>
-								11:00 AM - 2300 PM
-							</p>
-						</div>
-
-						<div class="email mt-4">
-							<i class="icon-envelope"></i>
-							<h4 class="mb-2">Email:</h4>
-							<p>info@</p>
-						</div>
-
-						<div class="phone mt-4">
-							<i class="icon-phone"></i>
-							<h4 class="mb-2">Call:</h4>
-							<p>+1 1234 55488 55</p>
-						</div>
-
-					</div>
-				</div> -->
 				<div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
 					<form action="#">
 						<div class="row">
-							<!-- <div class="col-6 mb-3">
-								<input type="text" class="form-control" placeholder="Your Name">
-							</div>
-							<div class="col-6 mb-3">
-								<input type="email" class="form-control" placeholder="Your Email">
-							</div>
-							<div class="col-12 mb-3">
-								<textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
-							</div> -->
 							<div class="col-6 mb-3">
 								<input type="text" id="id" class="form-control loginType" placeholder="Id">
 								<br>
 								<input type="password" id="pw" class="form-control passType" placeholder="Password">
 								<br>
+								<input type="checkbox">아이디저장
 							</div>
-<!-- 
-							<div class="col-12 mb-3">
-								<input type="text" class="form-control" placeholder="Id">
-							</div>
-							<div class="col-12 mb-3">
-								<input type="text" class="form-control" placeholder="Password">
-							</div> -->
+
 							<script>
 								$(function(){
 									const csrfToken = $("meta[name='csrf-token']").attr("content");
 									$("#sBtn").click(function(){
 										//alert("로그인 진행"+$("#id").val()+$("#pw").val())
-										id = $("#id").val()
-										pw = $("#pw").val()
+										m_id = $("#id").val()
+										m_password = $("#pw").val()
 
 										$.ajax({
 											headers:{"X-CSRFToken":csrfToken},
 											url:"/member/loginChk/",
 											type:"post",
-											data:{"id":id,"pw":pw},
+											data:{"m_id":m_id,"m_password":m_password},
 											success:function(data){
 												if (data.result == "success"){
 													alert("로그인이 되었습니다.")
@@ -213,7 +162,7 @@
 							</script>
 							<div>
 								<div class=" mb-3_5">
-									<input type="submit" id="sBtn" value="로그인" class="btn btn-primary dpchk">
+									<input type="button" id="sBtn" value="로그인" class="btn btn-primary dpchk">
 								</div>
 							</div>
 						</div>

@@ -6,12 +6,47 @@ from member.models import Member
 
 
 # 회원가입(약관동의)
-def signup01(request):
-  return render(request, 'signup01.html')
+def sigup01(request):
+  return render(request, 'sigup01.html')
 
 # 회원가입(정보입력)
-def signup02(request):
-  return render(request, 'signup02.html')
+def sigup02(request):
+  return render(request, 'sigup02.html')
+
+# 아이디 중복 확인
+def idchk(request):
+  m_id = request.POST.get("m_id","")
+  qs = Member.objects.filter(m_id=m_id)
+
+  print(m_id)
+  print(qs)
+
+  if qs:
+    context = {"result":"success"}
+  else:
+    context = {"result":"fail"}
+  return JsonResponse(context)
+
+
+# 회원가입(정보 저장)
+def signcp(request):
+  if request.method == "POST":
+    id = request.POST.get('아이디')
+    pw = request.POST.get('비밀번호')
+    name = request.POST.get('실명')
+    nicName = request.POST.get('별명')
+    gender = request.POST.get('gender')
+    email = request.POST.get('이메일')
+    print("변수", id, pw, name, nicName, gender, email)
+    # Member.objects.create(m_id=id, m_password=pw, m_username=name, m_nickName=nicName, m_gender=gender, m_email=email)
+    return redirect("member:sigcomp")
+  else:  
+    return render(request, 'signup02.html')
+
+# 가입완료 
+def sigcomp(request):
+  return render(request, "sigcomp.html")
+
 
 
 ## 로그아웃
@@ -19,17 +54,19 @@ def logout(request):
   request.session.clear()
   return redirect("/")
 
+
+
 ## 로그인확인
 def loginChk(request):
-  id = request.POST.get("id","")
-  pw = request.POST.get("pw","")
+  m_id = request.POST.get("m_id","")
+  m_password = request.POST.get("m_password","")
   # db확인
-  qs = Member.objects.filter(m_id=id,m_password=pw)
-  print("확인 : ",id,pw)
+  qs = Member.objects.filter(m_id=m_id, m_password=m_password)
+  # print("확인 : ",m_id,m_passpw)
   if qs:
     # 섹션추가
-    request.session['session_id'] = qs[0].m_id
-    request.session['session_nicName'] = qs[0].m_nickName
+    request.session['session_m_id'] = qs[0].m_id
+    request.session['session_m_nickName'] = qs[0].m_nickName
     list_qs = list(qs.values())
     context = {"result":"success","member":list_qs}  #dic,list타입
   else:

@@ -670,6 +670,7 @@
 .sbtn{display:block; width:130px; height:40px; line-height:40px; background:#f7703c; color:#fff !important; font-size:14px; font-weight:600; text-align:center;}
 .sbtn:hover{color:#fff;}
 .sbtnMini{display:block; width:110px; height:30px; line-height:30px; background:#f7703c; color:#fff !important; font-size:14px; font-weight:600; text-align:center;}
+#sbtnMini{display:block; width:110px; height:30px; line-height:30px; background:gray; color:#fff !important; font-size:14px; font-weight:600; text-align:center;}
 .sbtnMini:hover{color:#fff;}
 .nbtnbig{display:block; width:110px; height:30px; line-height:30px; background:#999; color:#fff !important; font-size:14px; font-weight:600; text-align:center;}
 .nbtnbig:hover{color:#fff;}
@@ -1325,4 +1326,35 @@ span.searchStyleSelectBox.changed{background-color: #fff;}
 .infobtn li a.ty3{width:78px;}
 
 
+}
+
+
+
+/*신규 스타일*/
+.t_table1, .t_table2  {
+  font-family: "Black Han Sans", serif;
+  font-size:25px;
+}
+.t_table1{
+  background-color: #F7F7F7;
+}
+#l_city {
+  width: 50%;
+  border-collapse: collapse;
+  margin: 20px 30%;
+}
+#img_td {
+    width: 150px; /* 셀의 너비 */
+    height: 150px; /* 셀의 높이 */
+    text-align: center;
+}
+.t_img {
+    width: calc(100% - 20px); /* 셀 너비에서 좌우 여백만큼 크기 감소 */
+    height: calc(100% - 10px); /* 셀 높이에서 위아래 여백만큼 크기 감소 */
+    object-fit: cover; /* 이미지 비율 유지하면서 셀 채우기 */
+    margin: 10px; /* 상하좌우 여백 10px */
+}
+#title_icon{
+  margin: 15px 50% ;
+  
 }

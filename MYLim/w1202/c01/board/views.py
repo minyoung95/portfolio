@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator # 페이지 넘버링
 import os
 from django.conf import settings
+from django.http import JsonResponse
 
 ### 게시판 리스트
 def blist(request):
@@ -112,3 +113,23 @@ def bdelete(request,b_no):
   Board.objects.get(b_no=b_no).delete()
   context = {'dmsg':b_no}
   return render(request,'blist.html',context)
+
+### 좋아요
+def likes(request):
+  m_id = request.session["session_m_id"]
+  member = Member.objects.get(m_id=m_id)
+  b_no = request.POST.get("b_no")
+  board = Board.objects.get(b_no=b_no)
+  
+  # 저장 board.b_no, board.member.m_id
+  if board.b_like_members.filter(pk=m_id).exists(): # 좋아요클릭을 했으면
+    board.b_like_members.remove(member)
+    result = "remove" # 좋아요취소
+  else:
+    board.b_like_members.add(member)
+    result = "add"    # 좋아요추가  
+  
+  print("좋아요 개수 확인 : ",board.b_like_members.count())
+  context = {"result":result,"count":board.b_like_members.count()}
+  
+  return JsonResponse(context)

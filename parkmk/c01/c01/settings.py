@@ -29,6 +29,9 @@ INSTALLED_APPS = [
     'home',
     'board',
     'member',
+    'inside',
+    'food',
+    'locate',
 ]
 
 MIDDLEWARE = [
