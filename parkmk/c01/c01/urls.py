@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path('board/', include('board.urls')),
     path('member/', include('member.urls')),
+    path('inside/', include('inside.urls')),
     
     
 ]
