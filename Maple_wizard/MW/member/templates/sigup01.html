@@ -4,6 +4,7 @@
 * Tempalte URI: https://untree.co/
 * License: https://creativecommons.org/licenses/by/3.0/
 */ -->
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,14 +22,14 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="fonts/icomoon/style.css">
-	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<link rel="stylesheet" href="{% static 'fonts/icomoon/style.css'%}">
+	<link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css'%}">
 
-	<link rel="stylesheet" href="css/tiny-slider.css">
-	<link rel="stylesheet" href="css/aos.css">
-	<link rel="stylesheet" href="css/flatpickr.min.css">
-	<link rel="stylesheet" href="css/glightbox.min.css">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="{% static 'css/tiny-slider.css'%}">
+	<link rel="stylesheet" href="{% static 'css/aos.css'%}">
+	<link rel="stylesheet" href="{% static 'css/flatpickr.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/glightbox.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/style.css'%}">
 
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
@@ -191,6 +192,9 @@
 								if($("#p1no").prop("checked") || $("#p2no").prop("checked")){
 									alert("모두 동의를 해 주셔야 합니다.");
 									return false;
+								}else if($("#p1no").prop("checked") && $("#p2no").prop("checked")){
+									alert("다음")
+									// location.href = "/member/sigup02/"
 								}
 							};
 
@@ -289,14 +293,14 @@
 		</div>
 
 
-		<script src="js/bootstrap.bundle.min.js"></script>
-		<script src="js/tiny-slider.js"></script>
-		<script src="js/aos.js"></script>
-		<script src="js/navbar.js"></script>
-		<script src="js/counter.js"></script>
-		<script src="js/rellax.js"></script>
-		<script src="js/flatpickr.js"></script>
-		<script src="js/glightbox.min.js"></script>
-		<script src="js/custom.js"></script>
+		<script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+		<script src="{% static 'js/tiny-slider.js'%}"></script>
+		<script src="{% static 'js/aos.js'%}"></script>
+		<script src="{% static 'js/navbar.js'%}"></script>
+		<script src="{% static 'js/counter.js'%}"></script>
+		<script src="{% static 'js/rellax.js'%}"></script>
+		<script src="{% static 'js/flatpickr.js'%}"></script>
+		<script src="{% static 'js/glightbox.min.js'%}"></script>
+		<script src="{% static 'js/custom.js'%}"></script>
 	</body>
 	</html>
