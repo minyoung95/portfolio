@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from board.models import Board
 from member.models import Member
 from comment.models import Comment
+from board.models import BoardFile
 from datetime import datetime
 from django.db.models import Q
 from django.core.paginator import Paginator # 페이지 넘버링
@@ -38,10 +39,13 @@ def bwrite(request):
     member = Member.objects.get(m_id=m_id)
     b_title=request.POST.get("b_title")
     b_content=request.POST.get("b_content")
-    b_file=request.FILES.get("b_file","")
+    files = request.FILES.getlist('b_file')  # getlist로 여러 파일을 받아옴
+    board = Board.objects.create(member=member, b_title=b_title, b_content=b_content)
     
-    qs = Board.objects.create(member=member,b_title=b_title,b_content=b_content,b_file=b_file)
-    qs.save()
+    # BoardFile 모델에 이미지 파일 저장
+    for file in files:
+        board_file = BoardFile.objects.create(b_board=board, b_file=file)
+        board.files.add(board_file)  # Board와 BoardFile 연결
   
     context={'wmsg':"1"}
     return render(request, 'bwrite.html',context)

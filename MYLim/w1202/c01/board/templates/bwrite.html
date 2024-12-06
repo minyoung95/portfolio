@@ -225,41 +225,62 @@
 											</td>
 									</tr>
 									
-									<!-- 이미지 파일 -->
+									<!-- 이미지 파일 업로드 -->
 									<tr>
 										<th scope="row"><span>이미지 파일</span></th>
 										<td>
-												<input type="file" name="b_file" class="fileType" onchange="readURL(this)">
+												<input type="file" name="b_file" class="fileType" onchange="readURL(this)" multiple>
 												<input type="checkbox" name="delete_image" id="delete_image">
 												<label for="delete_image">이미지를 전체를 삭제합니다</label>
 										</td>
-								</tr>
-								<!-- 이미지 미리보기 -->
-								<tr>
-										<th><span>이미지</span></th>
-										<td id='txt'>
-												<img id="preview" style="width:200px; display: none; border: 1px solid #ccc;" alt="이미지 미리보기">
-										</td>
-								</tr>
-							</tbody>
-							
+									</tr>
+
+									<!-- 이미지 미리보기 -->
+									<tr>
+											<th><span>이미지</span></th>
+											<td id="txt">
+													<div id="image_previews"></div>  <!-- 미리보기할 이미지들이 나오는 div -->
+											</td>
+									</tr>							
 							<script>
-								//이미지 미리보기
-								function readURL(input) {
-									if (input.files && input.files[0]) {
-											var reader = new FileReader(); // FileReader 객체 생성
-											reader.onload = function(e) {
-													const preview = document.getElementById('preview');
-													preview.src = e.target.result; // 이미지 데이터를 미리보기로 설정
-													preview.style.display = 'block'; // 이미지 요소 표시
-											};
-											reader.readAsDataURL(input.files[0]); // 파일을 DataURL로 읽음
-									} else {
-											const preview = document.getElementById('preview');
-											preview.src = ""; // 이미지 초기화
-											preview.style.display = 'none'; // 이미지 숨기기
+										// 여러 이미지 미리보기
+										function readURL(input) {
+											const previewContainer = document.getElementById('image_previews');
+											previewContainer.innerHTML = ''; // 기존 미리보기 이미지들 초기화
+									
+											// 선택된 파일들 처리
+											if (input.files && input.files.length) {
+													for (let i = 0; i < input.files.length; i++) {
+															const reader = new FileReader(); // FileReader 객체 생성
+															reader.onload = function(e) {
+																	// 미리보기 이미지 컨테이너 생성
+																	const imageContainer = document.createElement('div');
+																	const imgElement = document.createElement('img');
+																	imgElement.style.width = '200px';
+																	imgElement.style.border = '1px solid #ccc';
+																	imgElement.src = e.target.result; // 이미지 데이터를 미리보기로 설정
+																	imgElement.alt = "이미지 미리보기";
+									
+																	// 미리보기 이미지 아래 체크박스 추가 (선택시 삭제할 수 있도록)
+																	const checkbox = document.createElement('input');
+																	checkbox.type = 'checkbox';
+																	checkbox.name = 'select_image_' + i; // 각 이미지에 대해 고유한 name 지정
+																	checkbox.id = 'select_image_' + i; 
+																	const label = document.createElement('label');
+																	label.setAttribute('for', checkbox.id);
+																	label.textContent = '이미지 체크시 삭제됩니다.';
+									
+																	imageContainer.appendChild(imgElement);
+																	imageContainer.appendChild(checkbox);
+																	imageContainer.appendChild(label);
+									
+																	previewContainer.appendChild(imageContainer); // 미리보기와 체크박스를 div에 추가
+															};
+															reader.readAsDataURL(input.files[i]); // 각 파일을 DataURL로 읽음
+													}
+											}
 									}
-							}
+
 
 								//Summernote 초기화 스크립트
 									$(document).ready(function() {
