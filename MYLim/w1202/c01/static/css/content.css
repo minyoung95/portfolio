@@ -285,7 +285,7 @@
 
 .otherTab{width:100%; margin:0; overflow:hidden;}
 .otherTab ul{width:100%; border-bottom:2px #5a524c solid; overflow:hidden;}
-.otherTab ul li{float:left; padding:0 5px 0 0;}
+.otherTab ul li{float:left; padding:0 5px 0 0; box-sizing: border-box;}
 .otherTab ul li.last{padding:0;}
 .otherTab ul li a{display:block; width:163px; height:40px; line-height:40px; background:#ebebeb; font-weight:600; font-size:14px; text-align:center;}
 .otherTab ul li a span{color:#f7703c;}
@@ -369,7 +369,7 @@
 .replyBox ul{position:relative; border-bottom:1px #d9d9d9 solid; margin:15px 0 0 0; padding:0 20px 15px 20px;}
 .replyBox ul li.name{font-size:14px; font-weight:600; color:#555; padding:0 0 10px 0;}
 .replyBox ul li.name span{font-size:12px; color:#888; font-weight:normal;}
-.replyBox ul li.txt{width:100%; color:#888; line-height:1.5; font-size:13px; word-break:keep-all;}
+.replyBox ul li.txt{width:100%; color:#888; line-height:1.5; font-size:14px; word-break:keep-all;}
 .replyBox ul li.btn{text-align:right; height:20px; padding:3px 0 0 0;}
 .replyBox ul li.btn .rebtn{display:inline-block; width:43px; height:23px; line-height:22px; color:#777; 
   font-weight:600; text-align:center; background:url('../images/btn/btn_daybtn.gif') left top no-repeat;}
@@ -819,7 +819,7 @@
 
 /* SEARCH */
 .searchWrap{width:100%; background:#f1f1f1; padding:10px 0 9px 0; margin:40px 0 0 0;}
-.search{width:380px; margin:0 auto; text-align:center; overflow:hidden;}
+.search{width:400px; margin:0 auto; text-align:center; overflow:hidden;}
 .search ul li{float:left; }
 .search ul li button{border:None;}
 .search ul li.se{margin:0 12px 0 0;}

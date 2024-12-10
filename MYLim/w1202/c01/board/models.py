@@ -10,7 +10,7 @@ class Board(models.Model):
   b_title = models.CharField(max_length=30)
   b_content = models.TextField()
   b_hit = models.IntegerField(default=0)
-  b_header = models.CharField(max_length=10)
+  b_header = models.CharField(max_length=10, null=True, blank=True)
   b_date = models.DateTimeField(auto_now=True)
   b_file = models.ManyToManyField('BoardFile', blank=True)  # ManyToManyField로 이미지 여러 개 연결
   
