@@ -14,9 +14,10 @@ from django.db.models import Count
 ### 게시판 리스트
 def blist(request):
   npage = int(request.GET.get('npage',1))
-  qs = Board.objects.all().order_by('-b_no')
+  b_header = request.GET.get('b_header','')
   cl = request.GET.get('cl','')
   searchType = request.GET.get('type','b_title')
+  qs = Board.objects.all().order_by('-b_no')
   
   if cl:
     if searchType == 'b_title':
@@ -26,9 +27,12 @@ def blist(request):
     elif searchType == 'b_title_content':
       qs = Board.objects.filter(Q(b_title__icontains=cl)|Q(b_content__icontains=cl))
       
+  if b_header:
+    qs = qs.filter(b_header=b_header)
+      
   qs = qs.annotate(comment_count=Count('comment')) # 댓글 수 표시
   
-  paginator = Paginator(qs,2)
+  paginator = Paginator(qs,5)
   blist = paginator.get_page(npage)
   context = {'blist':blist,'npage':npage,'cl':cl,'searchType':searchType}
   return render(request,'blist.html',context)
@@ -126,6 +130,7 @@ def bupdate(request,b_no):
     return render(request,'bupdate.html',context)
   else:
     b_no = request.POST.get('b_no')
+    b_header = request.POST.get('b_header')
     b_title = request.POST.get('b_title')
     b_content = request.POST.get('b_content')
     b_file = request.FILES.getlist('b_file')
@@ -140,6 +145,7 @@ def bupdate(request,b_no):
           os.remove(image_path)
         file.delete() # 삭제
               
+    qs.b_header = b_header          
     qs.b_title = b_title
     qs.b_content = b_content
     

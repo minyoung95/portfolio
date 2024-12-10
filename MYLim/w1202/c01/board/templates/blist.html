@@ -143,7 +143,7 @@
 			<!-- contents -->
 			<div id="contents">
 				<div id="mypage">
-					<h2><strong>여행 후기 게시판</strong><span>{{request.session.session_m_nickName}}님의 특별했던 순간과 경험을 후기로 공유해보자!!</span></h2>
+					<h2><a href='/board/blist/'><strong>여행 후기 게시판</strong></a><span>{{request.session.session_m_nickName}}님의 특별했던 순간과 경험을 후기로 공유해보자!!</span></h2>
 					<div class="searchWrap">
 						<form method='get' action="{% url 'board:blist' %}">
 							<div class="search">
@@ -171,9 +171,9 @@
 					<div class="productTab normaltab">
 						<ul>
 							<li><a href="#" class="on">인기</a></li>
-							<li class="last"><a href="#">지역</a></li>
-							<li class="last"><a href="#">관광지</a></li>
-							<li class="last"><a href="#">먹거리/맛집</a></li>
+							<li class="last"><a href="/board/blist/?b_header=지역" class="{% if request.GET.b_header == '지역' %}on{% endif %}">지역</a></li>
+							<li class="last"><a href="/board/blist/?b_header=관광지" class="{% if request.GET.b_header == '관광지' %}on{% endif %}">관광지</a></li>
+							<li class="last"><a href="/board/blist/?b_header=먹거리/맛집" class="{% if request.GET.b_header == '먹거리/맛집' %}on{% endif %}">먹거리/맛집</a></li>
 						</ul>						
 					</div>
 					
@@ -197,7 +197,7 @@
 								</div>	
 								<div class="txt">
 									<div class="subject">
-										<a href="/board/bview/{{board.b_no}}/"><span class="orange">{{board.b_header}}</span> {{board.b_title}} <span style="color : #f94b4b;">[{{board.comment_count}}]</span></a>
+										<a href="/board/bview/{{board.b_no}}/"><span class="orange">[{{board.b_header}}]</span> {{board.b_title}} <span style="color : #f94b4b;">[{{board.comment_count}}]</span></a>
 									</div>
 									<div class="conf">
 										<a href='/board/bview/{{board.b_no}}/'>

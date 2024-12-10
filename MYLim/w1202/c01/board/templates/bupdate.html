@@ -193,10 +193,11 @@
 											<td>
 													<ul class="pta">
 															<li class="pt5">
-																	<select>
-																			<option value="">지역</option>
-																			<option value="">관광지</option>
-																			<option value="">먹거리/맛집</option>
+																	<select name='b_header' id='b_header'>
+																			<option value="" {% if not board.b_header %}selected{% endif %}>선택</option>
+																			<option value="지역" {% if board.b_header == '지역' %}selected{% endif %}>지역</option>
+																			<option value="관광지"{% if board.b_header == '관광지' %}selected{% endif %}>관광지</option>
+																			<option value="먹거리/맛집"{% if board.b_header == '먹거리/맛집' %}selected{% endif %}>먹거리/맛집</option>
 																	</select>
 															</li>
 													</ul>
