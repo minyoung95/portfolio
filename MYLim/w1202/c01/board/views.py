@@ -27,11 +27,14 @@ def blist(request):
     elif searchType == 'b_title_content':
       qs = Board.objects.filter(Q(b_title__icontains=cl)|Q(b_content__icontains=cl))
       
-  if b_header:
+  ## 인기글 분류    
+  if b_header == '인기':
+    qs = qs.annotate(like_count=Count('b_like_members'))  # b_like_members의 수를 세기
+    qs = qs.filter(like_count__gte=1)
+  elif b_header:
     qs = qs.filter(b_header=b_header)
       
   qs = qs.annotate(comment_count=Count('comment')) # 댓글 수 표시
-  
   paginator = Paginator(qs,5)
   blist = paginator.get_page(npage)
   context = {'blist':blist,'npage':npage,'cl':cl,'searchType':searchType}
@@ -62,15 +65,23 @@ def bwrite(request):
 ### 게시판 글보기
 def bview(request,b_no):
   m_id = request.session.get('session_m_id')
-  print('세션아이디 : ',m_id)
   if not m_id:
     # m_id 가 없을경우
     return render(request,'bview.html',{'rq_login': True})
   else:
     member = Member.objects.get(m_id=m_id)
-    npage = request.GET.get('npage',1)
+    b_header = request.GET.get('b_header','')
+    npage = int(request.GET.get('npage',1))
     qs = Board.objects.get(b_no=b_no)
     c_qs = Comment.objects.filter(board=qs).order_by('c_no')
+    
+    # 게시판 표시
+    qx = Board.objects.all().order_by('-b_no')
+    if b_header:
+      qx = qx.filter(b_header=b_header)
+    qx = qx.annotate(comment_count=Count('comment')) # 댓글 수 표시
+    paginator = Paginator(qx,5)
+    blist = paginator.get_page(npage)
     
     ## 이전글, 다음글
     prev_qs = Board.objects.filter(b_no__lt=qs.b_no).order_by('-b_no').first()
@@ -102,7 +113,7 @@ def bview(request,b_no):
     print('날짜 : ',expires)
     context = {'board':qs, 'prev_board':prev_qs, 'next_board':next_qs,
                'npage':npage, 'clist':c_qs, 'result': result, 'count':count,
-               'dis_result':dis_result, 'dis_count':dis_count}
+               'dis_result':dis_result, 'dis_count':dis_count, 'blist':blist}
     response = render(request,'bview.html',context)
     ## 쿠키확인
     if request.COOKIES.get('cookie_boardNo') is not None:
