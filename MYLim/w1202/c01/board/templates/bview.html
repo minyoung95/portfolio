@@ -450,7 +450,7 @@
 								<li class="in">
 									<p class="txt">총 <span id='cnt' class="orange">{{clist.count}}</span> 개의 댓글이 달려있습니다.</p>
 									<p class="password">비밀번호&nbsp;&nbsp;<input type="password" class="replynum"></p>
-									<textarea class="replyType"></textarea>
+									<textarea class="replyType" rows='5'></textarea>
 								</li>
 								<li class="btn"><a href="#" class="replyBtn">등록</a></li>
 							</ul>
@@ -462,19 +462,23 @@
 							{% for comment in clist %}
 							<ul id='{{comment.c_no}}'>
 								<li class="name">{{comment.member.m_nickName}} <span>[{{comment.c_date|date:'Y-m-d H:i:s'}}]</span></li>
-								{% if request.session.session_m_id != comment.member.m_id and comment.c_pw != null %}
+							  {% if request.session.session_m_id != comment.member.m_id and comment.c_pw != '' %}
 									<li class="txt">
 										<a class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
 									</li>
 								{% else %}
-									<li class="txt">{{comment.c_content}}</li>
-									{% if request.session.session_m_id == comment.member.m_id %}
-									<li class="btn">
-										<a class="uBtn rebtn">수정</a>
-										<a class="dBtn rebtn">삭제</a>
-									</li>
-									{% endif %} <!-- 자기 댓글만 수정/삭제 버튼 -->
-								{% endif %}
+								<li class="txt">{{comment.c_content}}</li>
+								{% if request.session.session_m_id == comment.member.m_id %}
+								<li class="btn">
+									<a class="uBtn rebtn">수정</a>
+									<a class="dBtn rebtn">삭제</a>
+								</li>
+								{% else %}
+								<li class="btn">
+									<a class="rBtn rebtn">답글</a>
+								</li>
+								{% endif %} <!-- 자기 댓글만 수정/삭제 버튼 -->
+							{% endif %}
 							</ul>
 							{% endfor %}
 							{% else%}
