@@ -362,7 +362,7 @@
 .replyWrite ul li.in p.password{position:absolute; right:-2px; top:0; line-height:20px;} 
 .replyWrite ul li.btn{margin:1px 0 0 50px;}
 .replyWrite p.ntic{clear:both; padding:5px 0;}
-.replyType{width:100%; height:150px; border:1px #d9d9d9 solid; padding:0; font-family:'Nanum Gothic';}
+.replyType{width:100%; height:150px; border:1px #d9d9d9 solid; padding:10px; font-family:'Nanum Gothic';}
 .replyBtn{display:block; width:110px; height:85px; line-height:85px; color:#fff; font-size:14px; font-weight:600; background:#5a524c; text-align:center;}
 .replyBtn:hover{color:#fff; text-decoration:none;}
 .replyBox{width:100%; border-top:1px #d9d9d9 solid; overflow:hidden;}
@@ -754,6 +754,7 @@
   color: #4288c8;
 }
 
+/* 좋아요 부분 */
 .greatbox p {
   font-size: 14px;
   margin: 0; /* 기본 여백 제거 */

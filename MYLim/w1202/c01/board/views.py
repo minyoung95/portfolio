@@ -17,7 +17,7 @@ def blist(request):
   b_header = request.GET.get('b_header','')
   cl = request.GET.get('cl','')
   searchType = request.GET.get('type','b_title')
-  qs = Board.objects.all().order_by('-b_no')
+  qs = Board.objects.all().order_by('-b_date')
   
   if cl:
     if searchType == 'b_title':
@@ -73,10 +73,10 @@ def bview(request,b_no):
     b_header = request.GET.get('b_header','')
     npage = int(request.GET.get('npage',1))
     qs = Board.objects.get(b_no=b_no)
-    c_qs = Comment.objects.filter(board=qs).order_by('c_no')
+    c_qs = Comment.objects.filter(board=qs).order_by('c_date')
     
     # 게시판 표시
-    qx = Board.objects.all().order_by('-b_no')
+    qx = Board.objects.all().order_by('-b_date')
     if b_header:
       qx = qx.filter(b_header=b_header)
     qx = qx.annotate(comment_count=Count('comment')) # 댓글 수 표시
@@ -84,8 +84,8 @@ def bview(request,b_no):
     blist = paginator.get_page(npage)
     
     ## 이전글, 다음글
-    prev_qs = Board.objects.filter(b_no__lt=qs.b_no).order_by('-b_no').first()
-    next_qs = Board.objects.filter(b_no__gt=qs.b_no).order_by('b_no').first()
+    prev_qs = Board.objects.filter(b_date__lt=qs.b_date).order_by('-b_date').first()
+    next_qs = Board.objects.filter(b_date__gt=qs.b_date).order_by('b_date').first()
     
     count = f"좋아요 {qs.b_like_members.count()}"
     # 좋아요 상태를 확인
@@ -191,7 +191,7 @@ def likes(request):
   else:
     board.b_like_members.add(member)
     result = "add"    # 좋아요추가  
-  
+
   print("좋아요 개수 확인 : ",board.b_like_members.count())
   context = {"result":result,"count":board.b_like_members.count(), "dis_count":board.b_dislike_members.count()}
   
@@ -214,9 +214,7 @@ def dislikes(request):
   else:
     board.b_dislike_members.add(member)
     result = "add"    # 싫어요추가  
-    
-  
-  
+      
   print("싫어요 개수 확인 : ",board.b_dislike_members.count())
   context = {"dis_result":result, "count":board.b_like_members.count(), "dis_count":board.b_dislike_members.count()}
   

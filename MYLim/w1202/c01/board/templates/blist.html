@@ -175,6 +175,7 @@
 
 					<div class="productTab normaltab">
 						<ul>
+							<a></a>
 							<li><a href="/board/blist/" class = "{% if not request.GET.b_header %}on{% endif %}">전체</a></li>
 							<li><a href="/board/blist/?b_header=인기" class="{% if request.GET.b_header == '인기' %}on{% endif %}">인기</a></li>
 							<li><a href="/board/blist/?b_header=지역" class="{% if request.GET.b_header == '지역' %}on{% endif %}">지역</a></li>
@@ -207,7 +208,7 @@
 									</div>
 									<div class="conf">
 										<a href='/board/bview/{{board.b_no}}/'>
-											{{board.b_content}}
+											{{board.b_content|safe}}
 										</a>
 									</div>
 									<div class="data">

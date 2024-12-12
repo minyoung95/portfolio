@@ -38,7 +38,7 @@
 <style>a{cursor: pointer;}</style>
 <script type="text/javascript">
   function deleteBtn(){
-    if (confirm('{{board.b_no}} 게시글을 삭제하시겠습니까?')){
+    if (confirm('게시글을 삭제하시겠습니까?')){
       location.href = '/board/bdelete/{{board.b_no}}/';
     }
   }
@@ -180,7 +180,7 @@
 						</div>
 
 						<div class="viewContents">
-							{{board.b_content}}
+							{{board.b_content|safe}}
 						</div><br/><br/><br/><br/>
 						<div class="viewContents">
 							{% if board.b_file.exists %}
@@ -378,7 +378,7 @@
 
 								let datahtml = ""
 								datahtml += `<li class="name">${m_id} <span>${c_date}</span></li>`
-								datahtml += `<li class="txt"><textarea class="replyType">${c_content}</textarea></li>`
+								datahtml += `<li class="txt"><textarea class="replyType" row="5">${c_content}</textarea></li>`
 								datahtml += `<li class="btn">`
 								datahtml += `<a class="sBtn rebtn">완료</a>&nbsp`
 								datahtml += `<a class="cBtn rebtn">취소</a>`
@@ -439,6 +439,82 @@
 									}
 								})
 							}); // 댓글수정 저장
+
+							// --- 답글 ---
+
+							// 답글 입력
+							$(document).on('click','.rBtn',function(){
+								const parent_c_no = $(this).closest('ul').attr('id'); // 부모 댓글 ID 가져오기
+								console.log(parent_c_no)
+								const replyBox = $(this).closest('ul'); // 댓글 박스 위치 지정
+								let m_id = '{{request.session.session_m_nickName}}';
+								let c_date = new Date().toISOString().slice(0, 10); // 현재 날짜 가져오기
+
+								// 대댓글 입력 폼 추가
+								if (replyBox.find('.replyForm').length === 0) {
+									let datahtml = "";
+									datahtml += `<div style='border: 1px solid #dcdcdc; padding: 20px;'>`
+									datahtml += `<li class="name">${m_id} <span>${c_date}</span></li>`;
+									datahtml += `<li class="txt"><textarea class="replyType" rows="5" placeholder="답글을 입력하세요."></textarea></li>`;
+									datahtml += `<li class="btn">`;
+									datahtml += `<a class="sReplyBtn rebtn">작성</a>&nbsp;`;
+									datahtml += `<a class="cReplyBtn rebtn">취소</a>`;
+									datahtml += `</li>`;
+									datahtml += `</div>`;
+					
+									// 대댓글 입력 폼 추가
+									replyBox.append(`<ul class="replyForm">${datahtml}</ul>`);
+								}
+							}); // 답글 입력
+
+							// 작성 버튼 클릭시
+							$(document).on('click', '.sReplyBtn', function (){
+								const parent_c_no = $(this).closest('.replyForm').parent('ul').attr('id');
+								const c_content = $(this).closest('ul').find('.replyType').val();
+								const replyBox = $(this).closest('ul').parent('ul');
+								if (c_content === '') {
+										alert('답글 내용을 입력해주세요.');
+										return;
+								}
+
+								let b_no = '{{board.b_no}}';
+								console.log(b_no)
+								
+								$.ajax({
+									headers: { 'X-CSRFToken': csrfToken },
+									url: '/comment/reply/',
+									type: 'post',
+									data: { 'parent_c_no': parent_c_no, 'c_content': c_content, 'b_no': b_no },
+									success: function (data) {
+											if (data.result === 'success') {
+													alert('답글이 등록되었습니다.');
+			
+													let replyhtml = `
+															<ul class="child-comment">
+																	<li class="name">${data.comment[0].m_nickName} <span>[${data.comment[0].c_date}]</span></li>
+																	<li class="txt">${data.comment[0].c_content}</li>
+																	<li class="btn">
+																			<a class="uBtn rebtn">수정</a>&nbsp;
+																			<a class="dBtn rebtn">삭제</a>
+																	</li>
+															</ul>
+													`;
+													replyBox.append(replyhtml);
+													replyBox.find('.replyForm').remove(); // 입력 폼 삭제
+											} else {
+													alert('등록되지 않았습니다. 다시 시도해주세요.');
+											}
+									},
+									error: function () {
+											alert('실패');
+									}
+								});
+							});	// 작성버튼 클릭
+
+							// 답글 취소 
+							$(document).on('click', '.cReplyBtn', function () {
+									$(this).closest('ul.replyForm').remove();
+							}); // 답글 취소
 						}); // function
 
 					</script>
@@ -450,7 +526,7 @@
 								<li class="in">
 									<p class="txt">총 <span id='cnt' class="orange">{{clist.count}}</span> 개의 댓글이 달려있습니다.</p>
 									<p class="password">비밀번호&nbsp;&nbsp;<input type="password" class="replynum"></p>
-									<textarea class="replyType" rows='5'></textarea>
+									<textarea class="replyType" rows="5"></textarea>
 								</li>
 								<li class="btn"><a href="#" class="replyBtn">등록</a></li>
 							</ul>
@@ -522,7 +598,8 @@
 
 						<div class="productTab normaltab">
 							<ul>
-								<li><a href="#" class="on">인기</a></li>
+								<li><a href="/board/blist/" class = "{% if not request.GET.b_header %}on{% endif %}">전체</a></li>
+								<li><a href="/board/blist/?b_header=인기" class="{% if request.GET.b_header == '인기' %}on{% endif %}">인기</a></li>
 								<li><a href="/board/blist/?b_header=지역" class="{% if request.GET.b_header == '지역' %}on{% endif %}">지역</a></li>
 								<li><a href="/board/blist/?b_header=관광지" class="{% if request.GET.b_header == '관광지' %}on{% endif %}">관광지</a></li>
 								<li><a href="/board/blist/?b_header=먹거리/맛집" class="{% if request.GET.b_header == '먹거리/맛집' %}on{% endif %}">먹거리/맛집</a></li>
@@ -549,7 +626,7 @@
 										</div>
 										<div class="conf">
 											<a href='/board/bview/{{bblist.b_no}}/'>
-												{{bblist.b_content}}
+												{{bblist.b_content|safe}}
 											</a>
 										</div>
 										<div class="data">
