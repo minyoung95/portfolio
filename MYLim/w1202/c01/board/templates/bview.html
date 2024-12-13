@@ -325,7 +325,7 @@
 											console.log(datahtml)
 											// $('.replyBox').html(datahtml)
 											// $('.replyBox').append(datahtml)
-											$('.replyBox').prepend(datahtml)
+											$('.replyBox1').prepend(datahtml)
 											let cnt = $('#cnt').text()
 											$('#cnt').text((Number(cnt)+1)) 
 
@@ -396,7 +396,7 @@
 
 								let datahtml = ""
 
-								datahtml += `<li class="name">{{request.session.session_m_nickName}} <span>[${c_date}]</span></li>`
+								datahtml += `<li class="name">{{request.session.session_m_nickName}} <span>${c_date}</span></li>`
 								datahtml += `<li class="txt">${c_content}</li>`
 								datahtml += `<li class="btn">`
 								datahtml += `<a class="uBtn rebtn">수정</a>&nbsp`
@@ -448,8 +448,11 @@
 								console.log(parent_c_no)
 								const replyBox = $(this).closest('ul'); // 댓글 박스 위치 지정
 								let m_id = '{{request.session.session_m_nickName}}';
-								let c_date = new Date().toISOString().slice(0, 10); // 현재 날짜 가져오기
+								let now = new Date();
 
+								let c_date = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+								
+								
 								// 대댓글 입력 폼 추가
 								if (replyBox.find('.replyForm').length === 0) {
 									let datahtml = "";
@@ -471,14 +474,21 @@
 							$(document).on('click', '.sReplyBtn', function (){
 								const parent_c_no = $(this).closest('.replyForm').parent('ul').attr('id');
 								const c_content = $(this).closest('ul').find('.replyType').val();
-								const replyBox = $(this).closest('ul').parent('ul');
+								// 부모 댓글인 replyBox1을 찾아냅니다.
+								const parentComment = $(this).closest('.replyBox1');
+								
+								// 대댓글을 추가할 replyBox2를 parentComment 내에서 찾습니다.
+								const replyBox = parentComment.find('.replyBox2'); 
+
+								console.log(parentComment)
+								console.log(replyBox)
+
 								if (c_content === '') {
 										alert('답글 내용을 입력해주세요.');
 										return;
 								}
 
 								let b_no = '{{board.b_no}}';
-								console.log(b_no)
 								
 								$.ajax({
 									headers: { 'X-CSRFToken': csrfToken },
@@ -488,33 +498,55 @@
 									success: function (data) {
 											if (data.result === 'success') {
 													alert('답글이 등록되었습니다.');
+
+													const dateObj = new Date(data.comment[0].c_date);
+													const formattedDateTime = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj.getDate().toString().padStart(2, '0')} ${dateObj.getHours().toString().padStart(2, '0')}:${dateObj.getMinutes().toString().padStart(2, '0')}:${dateObj.getSeconds().toString().padStart(2, '0')}`;
 			
 													let replyhtml = `
-															<ul class="child-comment">
-																	<li class="name">${data.comment[0].m_nickName} <span>[${data.comment[0].c_date}]</span></li>
-																	<li class="txt">${data.comment[0].c_content}</li>
-																	<li class="btn">
-																			<a class="uBtn rebtn">수정</a>&nbsp;
-																			<a class="dBtn rebtn">삭제</a>
-																	</li>
-															</ul>
-													`;
-													replyBox.append(replyhtml);
-													replyBox.find('.replyForm').remove(); // 입력 폼 삭제
-											} else {
-													alert('등록되지 않았습니다. 다시 시도해주세요.');
-											}
-									},
-									error: function () {
-											alert('실패');
-									}
+													<ul class="replyBox2">
+															<li class="name">{{request.session.session_m_nickName}} <span>[${formattedDateTime}]</span></li>
+															<li class="txt">${data.comment[0].c_content}</li>
+															<li class="btn">
+																	<a class="uBtn rebtn">수정</a>&nbsp;
+																	<a class="dBtn rebtn">삭제</a>
+															</li>
+													</ul class="replyBox2">`;
+			
+													if (replyBox.length > 0) {
+														replyBox.append(replyhtml);
+												} else {
+														// replyBox2가 없으면 새로 만들어서 부모 댓글에 추가합니다.
+														parentComment.append('<ul class="replyBox2">' + replyhtml + '</ul>');
+												}
+				
+												// 대댓글 작성 폼을 제거합니다.
+												parentComment.find('.replyForm').remove();
+														} else {
+																alert('등록되지 않았습니다. 다시 시도해주세요.');
+														}
+												},
+												error: function () {
+														alert('실패');
+												}
+										});
+								}); // 작성버튼 클릭
+
+								// 대댓글 수정 및 삭제 버튼 이벤트 핸들러
+								$(document).on('click', '.uBtn', function () {
+										// 수정 로직을 여기에 추가
+										alert('수정 기능을 구현해야 합니다.');
 								});
-							});	// 작성버튼 클릭
+
+								$(document).on('click', '.dBtn', function () {
+										// 삭제 로직을 여기에 추가
+										alert('삭제 기능을 구현해야 합니다.');
+								});
 
 							// 답글 취소 
 							$(document).on('click', '.cReplyBtn', function () {
 									$(this).closest('ul.replyForm').remove();
 							}); // 답글 취소
+
 						}); // function
 
 					</script>
@@ -536,25 +568,38 @@
 						<div class="replyBox">
 							{% if clist %}
 							{% for comment in clist %}
-							<ul id='{{comment.c_no}}'>
+							<ul id='{{comment.c_no}}' class="replyBox1">
 								<li class="name">{{comment.member.m_nickName}} <span>[{{comment.c_date|date:'Y-m-d H:i:s'}}]</span></li>
-							  {% if request.session.session_m_id != comment.member.m_id and comment.c_pw != '' %}
-									<li class="txt">
+								<li class="txt">
+										{% if request.session.session_m_id != comment.member.m_id and comment.c_pw != null %}
 										<a class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
-									</li>
-								{% else %}
-								<li class="txt">{{comment.c_content}}</li>
-								{% if request.session.session_m_id == comment.member.m_id %}
-								<li class="btn">
-									<a class="uBtn rebtn">수정</a>
-									<a class="dBtn rebtn">삭제</a>
+										{% else %}
+										<li class="txt">{{comment.c_content}}</li>
+										{% endif %}
 								</li>
-								{% else %}
 								<li class="btn">
-									<a class="rBtn rebtn">답글</a>
+									{% if request.session.session_m_id == comment.member.m_id %}
+										<a class="uBtn rebtn">수정</a>
+										<a class="dBtn rebtn">삭제</a>
+									{% else %}
+										<a class="rBtn rebtn">답글</a>	
+									{% endif %} <!-- 자기 댓글만 수정/삭제 버튼 -->
 								</li>
-								{% endif %} <!-- 자기 댓글만 수정/삭제 버튼 -->
-							{% endif %}
+								<!-- 대댓글 리스트 -->
+								{% if comment.comment_set.all %}
+								<ul class="replyBox2">
+									{% for reply in comment.comment_set.all %}
+									<ul>
+										<li class="name">{{ reply.member.m_nickName }} <span>[{{ reply.c_date|date:'Y-m-d H:i:s'}}]</span></li>
+										<li class="txt">{{ reply.c_content }}</li>
+										<li class="btn">
+											<a class="uBtn rebtn">수정</a>
+											<a class="dBtn rebtn">삭제</a>
+										</li>
+									</ul>
+									{% endfor %}
+								</ul>
+								{% endif %}
 							</ul>
 							{% endfor %}
 							{% else%}

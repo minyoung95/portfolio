@@ -377,6 +377,9 @@
 .replynum{width:82px; height:20px; line-height:20px; border:1px #d9d9d9 solid; padding:0 0 0 5px;}
 .finReply{margin:50px 0 0 0;}
 
+/* 대댓글 */
+.replyBox2{width:100%; overflow:hidden; background-color: #f8f8f8;}
+
 /* AMOUNT */
 .amount{position:relative; width:100%; border:6px #999 solid; margin:50px 0 0 0; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; overflow:hidden;}
 .amount h4{font-size:30px; color:#444; padding:0 0 66px 0; margin:30px 20px 20px; border-bottom:1px #d9d9d9 solid;}
