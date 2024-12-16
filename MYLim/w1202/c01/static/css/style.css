@@ -1173,7 +1173,9 @@ progress {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
-    width: 41.66667%; }
+    width: 41.66667%; 
+    padding-left: 30px;
+    padding-top: 30px;}
   .col-lg-6 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
@@ -9788,7 +9790,7 @@ textarea {
     background-color: rgba(0, 0, 0, 0.25);
     z-index: 1; }
   .hero .heading {
-    font-size: 60px;
+    font-size: 40px;
     color: #fff;
     font-weight: 700; }
     @media (max-width: 991.98px) {
