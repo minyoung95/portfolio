@@ -7,7 +7,7 @@ class Location_inform(models.Model):
   l_no = models.AutoField(primary_key=True)
   l_location = models.CharField(max_length=30)
   l_description = models.TextField(null=True)
-  # l_like_members = models.ManyToManyField(Member,default='', related_name='location_like_member')
+  l_like_members = models.ManyToManyField(Member,default='', related_name='location_like_member')
   l_subtitle = models.CharField(max_length=50, null=True)
   l_file = models.ImageField(null=True,upload_to='board/')
   

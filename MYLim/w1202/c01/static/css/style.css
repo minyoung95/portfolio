@@ -9916,7 +9916,8 @@ textarea {
     .destination h3 a, .destination .h3 a {
       color: #343661; }
   .destination .meta {
-    color: #999; }
+    color: #999; 
+  }
 
 .destination-slider-wrap {
   position: relative; }
@@ -10605,4 +10606,8 @@ div#scidpw {
   display: flex;
   justify-content: space-between;
   margin: 0 13px;
+}
+
+.blank{
+  height: 150px;
 }

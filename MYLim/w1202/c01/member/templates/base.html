@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="{% static 'css/flatpickr.min.css'%}">
 	<link rel="stylesheet" href="{% static 'css/glightbox.min.css'%}">
 	<link rel="stylesheet" href="{% static 'css/style.css'%}">
-	<title>Sterial &mdash; Free Bootstrap 5 Website Template by Untree.co </title>
+	<title>KOAT - 코리아트레블</title>
 
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
@@ -53,34 +53,35 @@
 					</div>
 					<div class="col-lg-6 d-none d-lg-inline-block text-center nav-center-wrap">
 						<ul class="js-clone-nav  text-center site-menu p-0 m-0">
-							<li><a href="/">Home</a></li>
-							<li class="active"><a href="about.html">지역</a></li>
+							<li class="active"><a href="/">Home</a></li>
 							<li class="has-children">
-								<a href="#">즐길거리</a>
+								<a href="#">지역/즐길거리</a>
 								<ul class="dropdown">
-									<li><a href="#">관광지</a></li>
+									<li><a href="/location/location">지역</a></li>
 									<li class="has-children">
-										<a href="#">먹거리</a>
+										<a href="#">즐길거리</a>
 										<ul class="dropdown">
-											<li><a href="#">한국 대표 음식</a></li>
-											<li><a href="#">맛집</a></li>
-											<li><a href="#">Sub Menu Three</a></li>
+											<li><a href="/food/eat/">한국 대표 음식</a></li>
+											<li><a href="#">한국 문화 유산</a></li>
 										</ul>
 									</li>
 									<li><a href="#">Menu Three</a></li>
 								</ul>
 							</li>
-							{% if not request.session.session_m_id %}
-								<li><a href="/member/login/">로그인</a></li>
-							{% else %}
-								<li><a href="/member/logout/">로그아웃</a></li>
-							{% endif %}
 							<li><a href="/board/blist/">게시판</a></li>
+								{% if request.session.session_m_auth == 0%}
+									<li><a href="/admin/">admin</a></li>
+								{% else %}
+								{% endif %}
 						</ul>
 					</div>
 					<div class="col-6 col-lg-3 text-lg-end">
 						<ul class="js-clone-nav d-none d-lg-inline-block text-end site-menu ">
-							<li class="cta-button"><a href="contact.html">Contact Us</a></li>
+							{% if not request.session.session_m_id %}
+							<li class="cta-button"><a href="/member/login/">로그인</a></li>
+							{% else %}
+							<li class="cta-button"><a href="/member/logout/">로그아웃</a></li>
+							{% endif %}
 						</ul>
 
 						<a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
@@ -135,11 +136,11 @@
 				<div class="col-lg-3">
 					<div class="widget">
 						<h3>회사 주소</h3>
-						<address>	269, Olympic-ro, Songpa-gu, Seoul, Republic of Korea</address>
+						<address>	101, Gasan digital 2-ro, Geumcheon-gu, Seoul, Republic of Korea</address>
 						<ul class="list-unstyled links mb-4">
-							<li><a href="tel://11234567890">+82(02)-0000-0000</a></li>
-							<li><a href="tel://11234567890">+82(010)-1111-1111</a></li>
-							<li><a href="mailto:info@mydomain.com">info@mydomain.com</a></li>
+							<li><a href="tel://11234567890">Tel : +82(02)-2025-8523</a></li>
+							<li><a href="tel://11234567890">Fax : +82(02)-2101-2154</a></li>
+							<li><a href="mailto:info@mydomain.com">kosmo@ikosmo.co.kr</a></li>
 						</ul>
 					</div> <!-- /.widget -->
 				</div> <!-- /.col-lg-3 -->

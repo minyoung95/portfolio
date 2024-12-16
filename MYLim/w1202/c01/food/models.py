@@ -5,7 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField    # pip install djan
 class Food_inform(models.Model):
   f_no = models.AutoField(primary_key=True)
   f_name = models.CharField(max_length=10)
-  # f_like_members = models.ManyToManyField(Member,default='', related_name='food_like_member')
+  f_like_members = models.ManyToManyField(Member,default='', related_name='food_like_member')
   f_description = models.TextField()
   f_file = models.ImageField(null=True,upload_to='board')
 
