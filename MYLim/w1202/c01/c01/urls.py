@@ -12,6 +12,8 @@ urlpatterns = [
     path('location/',include('location.urls')),
     path('food/',include('food.urls')),
     path('chatbot/',include('chatbot.urls')),
+    path('package/',include('package.urls')),
+    path('shop/',include('shop.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

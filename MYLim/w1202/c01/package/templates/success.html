@@ -2,74 +2,72 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Untree.co">
-  <link rel="shortcut icon" href="favicon.png">
-  <meta name="description" content="" />
-  <meta name="keywords" content="bootstrap, bootstrap5" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css'%}">
-  <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css'%}">
-  <link rel="stylesheet" href="{% static 'css/tiny-slider.css'%}">
-  <link rel="stylesheet" href="{% static 'css/aos.css'%}">
-  <link rel="stylesheet" href="{% static 'css/flatpickr.min.css'%}">
-  <link rel="stylesheet" href="{% static 'css/glightbox.min.css'%}">
-  <link rel="stylesheet" href="{% static 'css/style.css'%}">
-  <link rel="stylesheet" href="{% static 'css/content.css'%}"> <!--새로 추가 해야 됨-->
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="csrf-token" content="{{ csrf_token }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="favicon.png">
 
-  <!--폰트 스타일-->
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap5" />
+	
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Pen+Script&family=Parkinsans:wght@300..800&family=Yuji+Mai&display=swap" rel="stylesheet">
-	<!--폰트 스타일-->
+	<link rel="stylesheet" href="{% static 'fonts/icomoon/style.css'%}">
+	<link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css'%}">
 
+	<link rel="stylesheet" href="{% static 'css/tiny-slider.css'%}">
+	<link rel="stylesheet" href="{% static 'css/aos.css'%}">
+	<link rel="stylesheet" href="{% static 'css/flatpickr.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/glightbox.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/style.css'%}">
 	<title>KOAT - 코리아트레블</title>
 
-	<style>
-  .food_div {
-      font-family: "Black Han Sans", serif;
-      margin-top: 300px;
-      margin-bottom: 400px;
-    }   
-
-  #food_table{
-      margin: 20px auto;
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <style>
+    /* 전체 페이지를 화면 크기 100%로 설정하고, flexbox로 정렬 */
+    #sbody {
+      display: flex;
+      justify-content: center; /* 가로 중앙 정렬 */
+      align-items: center;     /* 세로 중앙 정렬 */
+      height: 100vh;           /* 화면 높이 100% */
+      margin: 0;               /* 기본 여백 제거 */
+      font-family: Arial, sans-serif; /* 폰트 설정 */
     }
 
-  .food_img {
-    width: 300px; /* 원하는 너비로 설정 */
-    height: 300px; /* 원하는 높이로 설정 */
-    object-fit: cover; /* 비율을 유지하면서 크기에 맞게 자르기 */
-    display: block; /* 이미지를 블록 요소로 설정 (가운데 정렬 시 유용) */
-    margin: 0 auto; /* 이미지 가운데 정렬 */
-    
-  }
+    /* 텍스트와 링크 스타일 */
+    .sContent {
+      margin: 50px auto;
+      text-align: center;
+    }
 
-  #food_td {
-    
-    padding: 10px;
-    font-size: 30px;
-    text-align: center;
-  }
+    .sContent h3 {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
 
-  #kfood{
-    font-family: "Nanum Pen Script", cursive;
-    font-size: 50px;
-    text-align: center;
-    font-weight: 700;
-    margin-bottom: 180px;
-  }
-	</style>
+    .sContent a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50; /* 버튼 색상 */
+      color: white;
+      text-decoration: none;
+      border-radius: 5px; /* 둥근 모서리 */
+    }
+
+    .sContent a:hover {
+      background-color: #45a049; /* hover시 색상 변경 */
+    }
+  </style>
 </head>
 <body>
+	
 
 	<div class="site-mobile-menu site-navbar-target">
 		<div class="site-mobile-menu-header">
@@ -106,7 +104,7 @@
 								</ul>
 							</li>
 							<li><a href="/board/blist/">게시판</a></li>
-							<li><a href="/package/plist">패키지</a></li>
+              <li><a href="/package/plist">패키지</a></li>
 								{% if request.session.session_m_auth == 0%}
 									<li><a href="/admin/">admin</a></li>
 								{% else %}
@@ -132,24 +130,6 @@
 		</div>
 	</nav>
 
-	
-
-	<div class="hero overlay">
-
-		<div class="img-bg rellax">
-			<img src="/static/images/먹거리배경.jpg" alt="Image" class="img-fluid">
-		</div>
-
-		<div class="container">
-			<div class="row align-items-center justify-content-start">
-				<div class="col-lg-5">
-					<h1 class="heading" data-aos="fade-up">K-Food</h1>
-					<p class="mb-5" data-aos="fade-up">맛과 정이 담긴 한식의 세계로 초대합니다! 한국의 대표 음식을 만나보세요.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<!--사이드 바-->
 	<div id="right_fixed">
 		<div class="ai_chatting"></div>
@@ -165,34 +145,40 @@
 		const controlBtn = document.getElementById('vdcont');
 	// 사이드바 자바스크립트
 	</script>
-	
-	<div id = title_icon>
-		<img src="/static/images/favicon.png">
+  <!--헤더-->	
+  <div class="hero overlay">
+		<div class="img-bg rellax">
+			<img src="/static/images/package/package_image.webp" alt="Image" class="img-fluid">
+		</div>
+		<div class="container">
+			<div class="row align-items-center justify-content-start">
+				<div class="col-lg-6 mx-auto text-center">
+
+					<h1 class="heading" data-aos="fade-up">결제 성공!!</h1>
+					<p class="mb-4" data-aos="fade-up" style="font-size: 15px;">여행은 특별한 추억을 만드는 여정입니다. KOAT를 선택해 주셔서 진심으로 감사드리며, 고객님의 여행이 행복과 즐거움으로 가득하길 기원합니다.</p>
+
+					<div data-aos="fade-up">
+						<a href="https://www.youtube.com/watch?v=5n-e6lOhVq0" class="play-button glightbox3 w-100 text-center" >
+							<div class="d-inline-flex align-items-center ">
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
-  <div class="food_div" >
-    <div>
-      <h2 id ="kfood">※ 코리안 트레디셔널 푸드 ※</h2>
+  <!-- pList 부분 -->
+  <div id = 'sBody'>
+    <div class = 'sContent'>
+      <h4>추가 문의 사항이 있으시면 언제든지 저희에게 연락해 주세요. 즐겁고 안전한 여행 되시길 바랍니다.</h4>
+      <a href='/'>결제 완료</a>
     </div>
-    <table id="food_table">
-      <tbody>
-        {% for food in flist %}
-            {% if forloop.counter0|divisibleby:3 %}
-                <tr class="food_tr">
-            {% endif %}
-            <td id="food_td">
-                <a href="/food/niku/{{ food.e_name }}/">
-                    <img src="/static/images/{{ food.e_name }}.jpg" class="food_img">
-                    {{ food.e_name }}
-                </a>
-            </td>
-            {% if forloop.counter0|add:1|divisibleby:3 or forloop.last %}
-                </tr>
-            {% endif %}
-        {% endfor %}
-      </tbody>
-    </table>
-	</div>
+  </div>
+
+  <!-- pList 부분 -->
+
+  <!-- Footer 부분 -->
 
 	<div class="site-footer">
 		<div class="container">

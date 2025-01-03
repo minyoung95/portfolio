@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.humanize',
     'django.contrib.staticfiles',
     'home',
     'board',
@@ -33,6 +34,8 @@ INSTALLED_APPS = [
     'food',
     'location',
     'chatbot',
+    'package',
+    'shop',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +130,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+KAKAOPAY_API_KEY = 'fd7eccff6cc67c212a59902dd32974dc'
+
+ALLOWED_HOSTS = [
+    '127.0.0.1',               # 로컬 주소
+    'localhost',               # 로컬 호스트
+    'da1d-203-234-214-81.ngrok-free.app',  # Ngrok에서 제공된 도메인
+    'your-ngrok-url.ngrok-free.app',  # Ngrok URL (다른 Ngrok URL도 추가)
+]
+
+# settings.py
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # 디폴트 세션 저장 방식
+SESSION_COOKIE_NAME = 'sessionid'  # 세션 쿠키 이름
