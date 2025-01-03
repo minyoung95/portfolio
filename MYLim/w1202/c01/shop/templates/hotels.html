@@ -17,6 +17,15 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
+	<!-- flatpickr CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+	<!-- jQuery (선택 사항, 다른 부분에서 사용하는 경우) -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- flatpickr JS -->
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 	<link rel="stylesheet" href="{% static 'fonts/icomoon/style.css'%}">
 	<link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css'%}">
 
@@ -25,33 +34,6 @@
 	<link rel="stylesheet" href="{% static 'css/flatpickr.min.css'%}">
 	<link rel="stylesheet" href="{% static 'css/glightbox.min.css'%}">
 	<link rel="stylesheet" href="{% static 'css/style.css'%}">
-  <style>
-    .dropdown {
-      position: relative;
-    }
-    
-    .dropdown-menu {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background-color: white;
-      border: 1px solid #ccc;
-      z-index: 1000;
-      max-height: 200px;
-      overflow-y: auto;
-      display: none; /* 기본적으로 숨김 */
-    }
-    
-    .dropdown-menu .dropdown-item {
-      padding: 8px 12px;
-      cursor: pointer;
-    }
-    
-    .dropdown-menu .dropdown-item:hover {
-      background-color: #f0f0f0;
-    }
-  </style>
   <title>KOAT - 코리아트레블</title>
 
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -165,136 +147,154 @@
 	</div>
 
   <!-- 호텔 데이터 -->
-  <div class="section">
-    <div class="container">
-  
-      <div class="col-12">
-        <form action="{% url 'shop:hotels' %}" method="post" name="hotels">
-          {% comment %} <input type="text" id="hotelInput" class="form-control" placeholder="도시, 체크인 날짜, 체크아웃 날짜, 방 개수, 어른 명수, 아이 명수 ex)서울(14690),2024-12-19,2024-12-24,1,2,0">
-        </br> {% endcomment %}
-          <div class="dropdown">
-          <input type="text" id="cityInput" class="form-control" placeholder="도시를 입력하세요" autocomplete="off" readonly>
-            <ul id="cityList" class="dropdown-menu" style="display: none;">   
-              <li class="dropdown-item">서울</li>
-              <li class="dropdown-item">부산</li>
-              <li class="dropdown-item">제주</li>
-              <li class="dropdown-item">대구</li>
-              <li class="dropdown-item">광주</li>
-            </ul>
-          </div>
-          <br/>
-          <input type="button" id="hotelBtn" value="Search" class="btn btn-primary dpchk">
-        </form>
-      </div>
-      <br>
-  
-      <div class="row flex-container" id="hotel_list">
-        <!-- 여기에 호텔 데이터가 추가됩니다 -->
-      </div>
-    </div>
-  </div>
+	<div class="section">
+		<div class="container">
+	
+			<div class="col-12">
+				<form action="{% url 'shop:hotels' %}" method="post" name="hotels">
+					<div class="form-group">
+						<label for="citySelect">도시</label>
+						<select id="citySelect" class="form-control">
+								<option value="">도시 선택</option>
+								<option value="서울">서울</option>
+								<option value="부산">부산</option>
+								<!-- 추가로 도시를 선택할 수 있는 옵션 추가 -->
+						</select>
+					</div>
 
-  <script>
-    $(document).ready(function() {
-      $("#hotelBtn").off('click').on('click', function() {
-        loadHotelData();
-      function getCSRFToken() {
-        return $('#csrf_token').val();
-      }
-  
-      function loadHotelData() {
-        const inputData = $("#hotelInput").val();
-        const hotelList = $("#hotel_list");
-        hotelList.innerHTML = '<p>로딩 중...</p>'; // 로딩 메시지 추가
-        
-        // const [cityName, checkIn, checkOut, rooms, adults, children] = inputData.split(',').map(x => x.trim());
-        const cityInput = document.getElementById("cityInput");
-        const cityList = document.getElementById("cityList");
-        
-        cityInput.addEventListener("click", function () {
-          cityList.style.display = "block";
-        });
-        
-        cityList.addEventListener("click", function (event) {
-          if (event.target && event.target.matches(".dropdown-item")) {
-            const cityName = event.target.textContent; // 선택한 도시 이름
-            cityInput.value = cityName; // input에 도시 이름 반영
-            cityList.style.display = "none"; // 드롭다운 숨김
-      
-            // 체크인/체크아웃 등 추가 정보 (임시 값)
-            const checkIn = "2025-01-09"; // 체크인 날짜
-            const checkOut = "2025-01-12"; // 체크아웃 날짜
-            const rooms = 1; // 방 개수
-            const adults = 2; // 성인 수
-            const children = 0; // 아이 수
+					<div class="form-group">
+						<label for="checkInOutSelect">체크인 / 체크아웃 날짜</label>
+						<input type="text" id="checkInOutSelect" class="form-control" placeholder="체크인 및 체크아웃 날짜 선택">
+					</div>
 
-        fetch('/shop/api/hotels/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCSRFToken() // CSRF 토큰 추가
-            // 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36'
-          },
-          body: JSON.stringify({
-            city_name: cityName,
-            check_in: checkIn,
-            check_out: checkOut,
-            rooms: rooms,
-            adults: adults,
-            children: children
-          })
-        })
-        .then(response => {
-          if (!response.ok) {
-            return response.text().then(text => { throw new Error(`에러 발생: ${text}`); });
-          }
-          return response.json();
-        })
-        .then(data => {
-          hotelList.html(''); // 기존 데이터를 지우기
-          if (!data.data.length) {
-              // 조건에 부합하는 호텔이 없는 경우
-              hotelList.html('<h2 style="color: gray;">조건에 부합하는 호텔이 없습니다.</h2>');
-              return; // 더 이상 아래 코드를 실행하지 않음
-          }
-          if (data.status === 'error') {
-            throw new Error(data.message);
-          }	
-          
-          data.data.forEach((hotel, index) => {
-            const div = document.createElement('div');
-            div.classList.add('col-6', 'col-sm-6', 'col-md-6', 'col-lg-3', 'mb-4');
-            div.innerHTML = `
-            <div class="media-entry">
-                          <img src="${hotel.hlink}" alt="Image" class="img-fluid" style="width: 260px; height: 190px;">
-                          <div class="bg-white m-body">
-                            <h3><a>${hotel.name}</a></h3>
-                            <p>${hotel.cost}₩</p>
-                            </div>
-                            </div>
-                `;
-                hotelList.append(div);
-              });
-            })
-            .catch(error => {
-              hotelList.innerHTML = `<p>에러 발생: ${error.message}</p>`;
-              console.error('에러 발생:', error);
-            });
-          }
-      });
-      
-      // 드롭다운 외부 클릭 시 드롭다운 숨김
-      document.addEventListener("click", function (event) {
-        if (!cityList.contains(event.target) && event.target !== cityInput) {
-          cityList.style.display = "none";
-        }
-      });
-    
-      }
-    }); 
-  });//제이쿼리
+					<div class="form-group">
+							<label for="roomsSelect">방 개수</label>
+							<select id="roomsSelect" class="form-control">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<!-- 방 개수 선택 옵션 추가 -->
+							</select>
+					</div>
+					<div class="form-group">
+							<label for="adultsSelect">어른 명수</label>
+							<select id="adultsSelect" class="form-control">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<!-- 어른 명수 선택 옵션 추가 -->
+							</select>
+					</div>
+					<div class="form-group">
+							<label for="childrenSelect">아이 명수</label>
+							<select id="childrenSelect" class="form-control">
+									<option value="0">0</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<!-- 아이 명수 선택 옵션 추가 -->
+							</select>
+					</div>
+					<br/>
+					<input type="button" id="hotelBtn" value="Search" class="btn btn-primary dpchk">
+				</form>
+			</div>
+			<br>
+	
+			<div class="row flex-container" id="hotel_list">
+				<!-- 여기에 호텔 데이터가 추가됩니다 -->
+			</div>
+		</div>
+	</div>
 
-  </script>
+	<script>
+		$(document).ready(function() {
+
+			// flatpickr를 초기화하여 체크인 / 체크아웃 날짜 선택 기능 추가
+			flatpickr("#checkInOutSelect", {
+				mode: "range", // 날짜 범위 선택
+				dateFormat: "Y-m-d", // 날짜 형식
+				minDate: "today", // 오늘 날짜 이전은 선택 불가
+			});
+
+			$("#hotelBtn").off('click').on('click', function() {
+				loadHotelData();
+			function getCSRFToken() {
+				return $('#csrf_token').val();
+			}
+	
+			function loadHotelData() {
+				const cityName = $("#citySelect").val();
+				const checkInOut = $("#checkInOutSelect").val();
+				const rooms = $("#roomsSelect").val();
+				const adults = $("#adultsSelect").val();
+				const children = $("#childrenSelect").val();
+				const hotelList = $("#hotel_list");
+				hotelList.innerHTML = '<p>로딩 중...</p>'; // 로딩 메시지 추가
+				
+				// const [cityName, checkIn, checkOut, rooms, adults, children] = inputData.split(',').map(x => x.trim());
+				if (!cityName || !checkIn || !checkOut || !rooms || !adults || !children) {
+					hotelList.html('<p>모든 항목을 선택해주세요.</p>');
+					return;
+				}
+				
+				const [checkIn, checkOut] = checkInOut.split(" to ");
+
+				fetch('/shop/api/hotels/', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-CSRFToken': getCSRFToken() // CSRF 토큰 추가
+						// 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36'
+					},
+					body: JSON.stringify({
+						city_name: cityName,
+						check_in: checkIn,
+						check_out: checkOut,
+						rooms: rooms,
+						adults: adults,
+						children: children
+					})
+				})
+				.then(response => {
+					if (!response.ok) {
+						return response.text().then(text => { throw new Error(`에러 발생: ${text}`); });
+					}
+					return response.json();
+				})
+				.then(data => {
+					hotelList.html(''); // 기존 데이터를 지우기
+					if (!data.data.length) {
+							// 조건에 부합하는 호텔이 없는 경우
+							hotelList.html('<h2 style="color: gray;">조건에 부합하는 호텔이 없습니다.</h2>');
+							return; // 더 이상 아래 코드를 실행하지 않음
+					}
+					if (data.status === 'error') {
+						throw new Error(data.message);
+					}	
+					
+					data.data.forEach((hotel, index) => {
+						const div = document.createElement('div');
+						div.classList.add('col-6', 'col-sm-6', 'col-md-6', 'col-lg-3', 'mb-4');
+						div.innerHTML = `
+						<div class="media-entry">
+													<img src="${hotel.hlink}" alt="Image" class="img-fluid" style="width: 260px; height: 190px;">
+													<div class="bg-white m-body">
+														<h3><a>${hotel.name}</a></h3>
+														<p>${hotel.cost}₩</p>
+														</div>
+														</div>
+								`;
+								hotelList.append(div);
+							});
+						})
+						.catch(error => {
+							hotelList.innerHTML = `<p>에러 발생: ${error.message}</p>`;
+							console.error('에러 발생:', error);
+						});
+					}
+			});
+		}); //제이쿼리
+	</script>
 
   <!-- 호텔 데이터 -->
 

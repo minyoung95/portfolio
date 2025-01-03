@@ -7,8 +7,6 @@ const userInput = document.querySelector('#user-input input');
 const sendButton = document.querySelector('#user-input button');
 
 
-
-
 function addMessage(sender, message) {
     // 새로운 div 생성
     const messageElement = document.createElement('div');
