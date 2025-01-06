@@ -163,26 +163,17 @@
 	<div class="section" style="margin-top: -200px;">
 		<div class="container">
 			<div class="row align-items-stretch">
-				<nav class="mt-5" aria-label="Page navigation example" data-aos="fade-up" data-aos-delay="100">
-					<ul class="custom-pagination pagination">
-						<li class="page-item active"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-					</ul>
-				</nav>
+				<ul class="custom-pagination pagination" id="pagination" style="margin-left: 2200px;">
+					<li class="page-item prev" id="prev-button"><a class="page-link" style="display: none;"  href="#">이전</a></li>
+					<li class="page-item" id="page-1"><a class="page-link" href="#" onclick="changePage(1)">1</a></li>
+					<li class="page-item" id="page-2"><a class="page-link" href="#" onclick="changePage(2)">2</a></li>
+					<li class="page-item" id="page-3"><a class="page-link" href="#" onclick="changePage(3)">3</a></li>
+					<li class="page-item" id="page-4"><a class="page-link" href="#" onclick="changePage(4)">4</a></li>
+					<li class="page-item next" id="next-button"><a class="page-link" style="display: none;" href="#">다음</a></li>
+				</ul>
 			</div>	
 		</div>		
 	</div>
-
-	<nav class="mt-5" aria-label="Page navigation example" data-aos="fade-up" data-aos-delay="100">
-		<ul class="custom-pagination pagination">
-			<li class="page-item prev"><a class="page-link" href="#">Previous</a></li>
-			<li class="page-item active"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item next"><a class="page-link" href="#">Next</a></li>
-		</ul>
-	</nav>
 
   <!-- pList 부분 -->
 
