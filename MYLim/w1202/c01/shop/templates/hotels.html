@@ -37,6 +37,37 @@
   <title>KOAT - 코리아트레블</title>
 
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<style>
+
+		.hotel_form{
+			width: 120px;
+			border-radius: 10px;
+		}
+		#checkDay{
+			margin-right: 150px;
+		}
+		.checkDay{
+			width: 250px;
+		}
+		.form-group {
+			width: 200px;
+			display: inline-block;  /* 각 form-group을 가로로 배치 */
+			margin-right: 15px;     /* 오른쪽에 여백 추가 */
+		}
+
+		/* 모든 form-group의 자식 요소인 label, input, select 등이 가로로 정렬되도록 */
+		.form-group label,
+		.form-group select,
+		.form-group input {
+				display: inline-block;  /* 각 label, input, select을 가로로 배치 */
+				vertical-align: middle; /* 세로 정렬 */
+		}
+
+		/* 폼 컨트롤을 가로로 표시하도록 */
+		.hotel_form {
+				display: inline-block; /* 가로로 배치 */
+		}
+	</style>
 
 </head>
 <body>
@@ -152,47 +183,49 @@
 	
 			<div class="col-12">
 				<form action="{% url 'shop:hotels' %}" method="post" name="hotels">
-					<div class="form-group">
-						<label for="citySelect">도시</label>
-						<select id="citySelect" class="form-control">
-								<option value="">도시 선택</option>
-								<option value="서울">서울</option>
-								<option value="부산">부산</option>
-								<!-- 추가로 도시를 선택할 수 있는 옵션 추가 -->
-						</select>
-					</div>
+					<div id="hotels_form">
+						<div class="form-group">
+							<label for="citySelect">도시</label><br/>
+							<select id="citySelect" class="form-control hotel_form">
+									<option value="">도시 선택</option>
+									<option value="14690">14690</option>
+									<option value="17172">17172</option>
+									<!-- 추가로 도시를 선택할 수 있는 옵션 추가 -->
+							</select>
+						</div>
 
-					<div class="form-group">
-						<label for="checkInOutSelect">체크인 / 체크아웃 날짜</label>
-						<input type="text" id="checkInOutSelect" class="form-control" placeholder="체크인 및 체크아웃 날짜 선택">
-					</div>
+						<div class="form-group" id="checkDay">
+							<label for="checkInOutSelect">체크인 / 체크아웃 날짜</label><br/>
+							<input type="text" id="checkInOutSelect" class="form-control hotel_form checkDay" placeholder="체크인 및 체크아웃 날짜 선택">
+						</div>
 
-					<div class="form-group">
-							<label for="roomsSelect">방 개수</label>
-							<select id="roomsSelect" class="form-control">
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<!-- 방 개수 선택 옵션 추가 -->
-							</select>
-					</div>
-					<div class="form-group">
-							<label for="adultsSelect">어른 명수</label>
-							<select id="adultsSelect" class="form-control">
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<!-- 어른 명수 선택 옵션 추가 -->
-							</select>
-					</div>
-					<div class="form-group">
-							<label for="childrenSelect">아이 명수</label>
-							<select id="childrenSelect" class="form-control">
-									<option value="0">0</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<!-- 아이 명수 선택 옵션 추가 -->
-							</select>
+						<div class="form-group">
+								<label for="roomsSelect">방 개수</label><br/>
+								<select id="roomsSelect" class="form-control hotel_form">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<!-- 방 개수 선택 옵션 추가 -->
+								</select>
+						</div>
+						<div class="form-group">
+								<label for="adultsSelect">어른 명수</label><br/>
+								<select id="adultsSelect" class="form-control hotel_form">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<!-- 어른 명수 선택 옵션 추가 -->
+								</select>
+						</div>
+						<div class="form-group">
+								<label for="childrenSelect">아이 명수</label><br/>
+								<select id="childrenSelect" class="form-control hotel_form">
+										<option value="0">0</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<!-- 아이 명수 선택 옵션 추가 -->
+								</select>
+						</div>
 					</div>
 					<br/>
 					<input type="button" id="hotelBtn" value="Search" class="btn btn-primary dpchk">
@@ -232,11 +265,12 @@
 				hotelList.innerHTML = '<p>로딩 중...</p>'; // 로딩 메시지 추가
 				
 				// const [cityName, checkIn, checkOut, rooms, adults, children] = inputData.split(',').map(x => x.trim());
+				/*
 				if (!cityName || !checkIn || !checkOut || !rooms || !adults || !children) {
-					hotelList.html('<p>모든 항목을 선택해주세요.</p>');
-					return;
-				}
-				
+				hotelList.html('<p>모든 항목을 선택해주세요.</p>');
+				return;
+			}*/
+			
 				const [checkIn, checkOut] = checkInOut.split(" to ");
 
 				fetch('/shop/api/hotels/', {
@@ -244,7 +278,7 @@
 					headers: {
 						'Content-Type': 'application/json',
 						'X-CSRFToken': getCSRFToken() // CSRF 토큰 추가
-						// 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36'
+						 // 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36'
 					},
 					body: JSON.stringify({
 						city_name: cityName,
@@ -276,11 +310,12 @@
 						const div = document.createElement('div');
 						div.classList.add('col-6', 'col-sm-6', 'col-md-6', 'col-lg-3', 'mb-4');
 						div.innerHTML = `
-						<div class="media-entry">
-													<img src="${hotel.hlink}" alt="Image" class="img-fluid" style="width: 260px; height: 190px;">
+						<div class="media-entry" id="searchhotellist">
+													<img src="${hotel.hlink}" alt="Image" class="img-fluid" id="hotelimg" style="width: 260px; height: 190px;">
 													<div class="bg-white m-body">
 														<h3><a>${hotel.name}</a></h3>
 														<p>${hotel.cost}₩</p>
+														<a href="https://agoda.com/${hotel.hdirect}" class="btn btn-primary" id="hoteltxt" target="_blank">바로가기</a>
 														</div>
 														</div>
 								`;

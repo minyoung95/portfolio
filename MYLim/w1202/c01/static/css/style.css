@@ -10627,3 +10627,17 @@ div#scidpw {
 font-size: 13px; color: #111; letter-spacing: -0.26px;}
 #right_fixed .top{height: 30px; text-align: center; font-size: 13px; color: #333; letter-spacing: -1px; background: #F3F3F3;
 border-top: 1px solid #ddd; line-height: 30px;}
+
+/* 호텔 검색 결과창 */
+#searchhotellist {
+  box-sizing: border-box;
+  width: 300px;
+  height: 450px;
+  border: 3px solid gray;
+  padding-top: 20px;
+  border-radius: 10px;
+}
+
+#hotelimg {
+  margin: 10px 19px;
+}

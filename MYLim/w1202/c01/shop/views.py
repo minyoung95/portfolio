@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-# from .web_scrap import scrape_hotel_data
+from .web_scrap import scrape_hotel_data
 import json
 
 def hotels(request):
@@ -19,9 +19,9 @@ def get_hotel_data(request):
             children = int(body.get('children', 0))
 
             # 웹 스크래핑 함수 호출
-            # hotel_data = scrape_hotel_data(city_name, check_in, check_out, rooms, adults, children) , 'data': hotel_data
+            hotel_data = scrape_hotel_data(city_name, check_in, check_out, rooms, adults, children)
             
-            return JsonResponse({'status': 'success'}, safe=False)
+            return JsonResponse({'status': 'success', 'data': hotel_data}, safe=False)
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     else:
