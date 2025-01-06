@@ -4,7 +4,12 @@ from .web_scrap import scrape_hotel_data
 import json
 
 def hotels(request):
-  return render(request, 'hotels.html')
+    context = {
+        'room_range' : range(1, 10),
+        'adult_range': range(0, 30), 
+        'children_range': range(0, 50),  
+    }
+    return render(request, 'hotels.html', context)
 
 
 def get_hotel_data(request):

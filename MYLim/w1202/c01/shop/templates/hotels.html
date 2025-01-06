@@ -42,6 +42,8 @@
 		.hotel_form{
 			width: 120px;
 			border-radius: 10px;
+			display: inline-block;
+			margin-bottom: 20px;
 		}
 		#checkDay{
 			margin-right: 150px;
@@ -61,11 +63,6 @@
 		.form-group input {
 				display: inline-block;  /* 각 label, input, select을 가로로 배치 */
 				vertical-align: middle; /* 세로 정렬 */
-		}
-
-		/* 폼 컨트롤을 가로로 표시하도록 */
-		.hotel_form {
-				display: inline-block; /* 가로로 배치 */
 		}
 	</style>
 
@@ -110,6 +107,7 @@
 							</li>
 							<li><a href="/board/blist/">게시판</a></li>
               <li><a href="/package/plist">패키지</a></li>
+							<li><a href="/shop/hotels/">숙박시설</a></li>
 								{% if request.session.session_m_auth == 0%}
 									<li><a href="/admin/">admin</a></li>
 								{% else %}
@@ -153,14 +151,14 @@
   <!--헤더-->	
   <div class="hero overlay">
 		<div class="img-bg rellax">
-			<img src="/static/images/package/package_image.webp" alt="Image" class="img-fluid">
+			<img src="/static/images/shop_main(1).jpg" alt="Image" class="img-fluid">
 		</div>
 		<div class="container">
 			<div class="row align-items-center justify-content-start">
 				<div class="col-lg-6 mx-auto text-center">
 
 					<h1 class="heading" data-aos="fade-up">Hotel</h1>
-					<p class="mb-4" data-aos="fade-up" style="font-size: 30px;">현지의 예약 가능한 호텔 중 KOAT가 엄선한 호텔을 알려드립니다.</p>
+					<p class="mb-4" data-aos="fade-up" style="font-size: 30px;">현지의 예약 가능한 호텔 중 KOAT가 엄선한<br/> 호텔을 알려드립니다.</p>
 
 					<div data-aos="fade-up">
             <a href="https://www.agoda.com/ko-kr/?cid=1844104&ds=ZSDqvtarS5VJu5HZ" target="_blank" style="font-weight: 600; color: azure;">
@@ -187,42 +185,51 @@
 						<div class="form-group">
 							<label for="citySelect">도시</label><br/>
 							<select id="citySelect" class="form-control hotel_form">
-									<option value="">도시 선택</option>
-									<option value="14690">14690</option>
-									<option value="17172">17172</option>
+									<option value="">도시를 선택하세요</option>
+									<option value="14690">서울</option>
+									<option value="17172">부산</option>
+									<option value="17234">인천</option>
+									<option value="17233">대전</option>
+									<option value="17232">대구</option>
+									<option value="10137">울산</option>
+									<option value="19042">광주</option>
+									<option value="213180">세종</option>
 									<!-- 추가로 도시를 선택할 수 있는 옵션 추가 -->
 							</select>
 						</div>
 
 						<div class="form-group" id="checkDay">
 							<label for="checkInOutSelect">체크인 / 체크아웃 날짜</label><br/>
-							<input type="text" id="checkInOutSelect" class="form-control hotel_form checkDay" placeholder="체크인 및 체크아웃 날짜 선택">
+							<input type="text" id="checkInOutSelect" class="form-control hotel_form checkDay" placeholder="체크인 및 체크아웃 날짜를 선택하세요">
 						</div>
 
 						<div class="form-group">
-								<label for="roomsSelect">방 개수</label><br/>
+								<label for="roomsSelect">객실</label><br/>
 								<select id="roomsSelect" class="form-control hotel_form">
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
+									<option value="" disabled selected>객실 수를 선택하세요</option>
+									{% for i in room_range %}
+									<option value="{{ i }}">{{ i }}개</option>
+									{% endfor %}
 										<!-- 방 개수 선택 옵션 추가 -->
 								</select>
 						</div>
 						<div class="form-group">
-								<label for="adultsSelect">어른 명수</label><br/>
+								<label for="adultsSelect">성인</label><br/>
 								<select id="adultsSelect" class="form-control hotel_form">
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
+									<option value="" disabled selected>성인 명수를 선택하세요</option>
+									{% for j in adult_range %}
+									<option value="{{ j }}">{{ j }}명</option>
+									{% endfor %}
 										<!-- 어른 명수 선택 옵션 추가 -->
 								</select>
 						</div>
 						<div class="form-group">
-								<label for="childrenSelect">아이 명수</label><br/>
+								<label for="childrenSelect">아동</label><br/>
 								<select id="childrenSelect" class="form-control hotel_form">
-										<option value="0">0</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
+									<option value="" disabled selected>아동 명수를 선택하세요</option>
+									{% for k in children_range %}
+									<option value="{{ k }}">{{ k }}명</option>
+									{% endfor %}
 										<!-- 아이 명수 선택 옵션 추가 -->
 								</select>
 						</div>
