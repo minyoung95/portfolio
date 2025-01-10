@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'chatbot',
     'package',
     'shop',
+    'heritage',
 ]
 
 MIDDLEWARE = [
