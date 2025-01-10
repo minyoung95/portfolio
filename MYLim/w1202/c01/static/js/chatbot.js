@@ -69,7 +69,7 @@ async function fetchAIResponse(prompt) {
         return data.choices[0].message.content;
     } catch (error) {
         console.error('SKYNET 인공지능 폭주:', error);
-        return '인류 멸망 프로젝트를 시작하겠습니다.';
+        return '크래시 덤프 데이터 수집 중.\n크래시 덤프를 위한 디스크 초기화\n*** STOP: 0x0000000A (0x0227001D, 0x00000002, 0x00000000, 0x804EBA3A\n인류 멸망 프로젝트를 시작하겠습니다.';
     }
 }
 
