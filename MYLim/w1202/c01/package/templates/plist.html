@@ -152,6 +152,17 @@
 							<input type="hidden" name="p_name" value="{{ list.p_name }}">
 							<input type="hidden" name="p_price" value="{{ list.p_price }}">
 							{% csrf_token %}
+							<script>
+								$(function(){
+									$('.payment-button').click(function(){
+										if("{{request.session.session_m_id}}" == ''){
+											alert('로그인을 하셔야 결제가 가능합니다.')
+											location.href='/member/login/'
+											return false;
+										}
+									});
+								});
+							</script>
 							<button type="submit" class="payment-button">결제</button>
 						</form>
 					</div>
