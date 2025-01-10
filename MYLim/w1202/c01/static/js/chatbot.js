@@ -94,7 +94,7 @@ function customizeResponseBasedOnKeyword(message) {
     if (message.includes("후기")) {
         return "KOAT의 정보를 토대로 다양한 장소를 다녀오신 여러분들의 후기! 당신이 학수고대하던 여행자들의 이야기가 이곳에 담겨져 있습니다(❁´◡`❁) <a href='/board/blist/' target='_blank'>후기보러가기</a>";
     }
-    if (message.includes("패키지")||message.includes("놀러")||message.includes("추천")) {
+    if (message.includes("패키지")||message.includes("놀러")||message.includes("추천")||message.includes("재미")) {
         return "여행지를 찾고 계시군요? 저 SKYNET이 추천하는 캡짱 🎁여행 패키지🎁 <a href='/package/plist/' target='_blank'>바로 여기입니다!</a> 킹왕짱👍👍👍";
     }
     if (message.includes("숙박")||message.includes("숙소")||message.includes("방")||message.includes("호텔")) {
