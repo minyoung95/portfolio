@@ -88,11 +88,17 @@ function customizeResponseBasedOnKeyword(message) {
     if (message.includes("서울")) {
         return "서울에 대해 궁금하시군요! 저희 KOAT에서 제공하는 정보는 신뢰성과 최신성을 보장합니다!༼ つ ◕_◕ ༽つ  ➡ <a href='/location/up/서울/' target='_blank'>서울의 최신 정보자료</a>를 방문하여 서울에 관련된 다른 관광지 또한 알아보세요!";
     }
-    if (message.includes("문화유산")) {
+    if (message.includes("문화유산")||message.includes("기록유산")||message.includes("무형문화")) {
         return "한국의 자랑스러운 문화유산! 유네스코에서 지정한 다양한 문화유산을 확인해봐요! 어떤 문화유산이 있는지 확인하러가기 ➡ (<a href='/heritage/culture/' target='_blank'>KOAT 문화유산 page</a>)";
     }
     if (message.includes("후기")) {
         return "KOAT의 정보를 토대로 다양한 장소를 다녀오신 여러분들의 후기! 당신이 학수고대하던 여행자들의 이야기가 이곳에 담겨져 있습니다(❁´◡`❁) <a href='/board/blist/' target='_blank'>후기보러가기</a>";
+    }
+    if (message.includes("패키지")||message.includes("놀러")||message.includes("추천")) {
+        return "여행지를 찾고 계시군요? 저 SKYNET이 추천하는 캡짱 🎁여행 패키지🎁 <a href='/package/plist/' target='_blank'>바로 여기입니다!</a> 킹왕짱👍👍👍";
+    }
+    if (message.includes("숙박")||message.includes("숙소")||message.includes("방")||message.includes("호텔")) {
+        return "휴식은 참 중요하죠!😎 저 SKYNET이 고급 휴식처를 알려드릴게요!! 분명 다음날이면 피로감이 싹~~~~~~날라갔을거에요!!🐱‍🏍🐱‍🏍🐱‍🏍 <a href='/shop/hotels/' target='_blank'>휴식공간 선택하러 출발</a>";
     }
     return null; // 기본 응답을 사용하기 위해 null 반환
 }
