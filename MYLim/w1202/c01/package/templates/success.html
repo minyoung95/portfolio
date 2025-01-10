@@ -34,7 +34,7 @@
       display: flex;
       justify-content: center; /* 가로 중앙 정렬 */
       align-items: center;     /* 세로 중앙 정렬 */
-      height: 100vh;           /* 화면 높이 100% */
+       /* 화면 높이 100% */
       margin: 0;               /* 기본 여백 제거 */
       font-family: Arial, sans-serif; /* 폰트 설정 */
     }
@@ -55,97 +55,19 @@
       margin-top: 20px;
       padding: 10px 20px;
       font-size: 18px;
-      background-color: #4CAF50; /* 버튼 색상 */
+      background-color: #ed8447; /* 버튼 색상 */
       color: white;
       text-decoration: none;
       border-radius: 5px; /* 둥근 모서리 */
     }
 
     .sContent a:hover {
-      background-color: #45a049; /* hover시 색상 변경 */
+      background-color: #ed8447; /* hover시 색상 변경 */
     }
   </style>
 </head>
 <body>
 	
-
-	<div class="site-mobile-menu site-navbar-target">
-		<div class="site-mobile-menu-header">
-			<div class="site-mobile-menu-close">
-				<span class="icofont-close js-menu-toggle"></span>
-			</div>
-		</div>
-		<div class="site-mobile-menu-body"></div>
-	</div>
-
-	<nav class="site-nav mt-3">
-		<div class="container">
-
-			<div class="site-navigation">
-				<div class="row">
-					<div class="col-6 col-lg-3">
-						<a href="/" class="logo m-0 float-start">KOAT</a>
-					</div>
-					<div class="col-lg-6 d-none d-lg-inline-block text-center nav-center-wrap">
-						<ul class="js-clone-nav  text-center site-menu p-0 m-0">
-							<li class="active"><a href="/">Home</a></li>
-							<li class="has-children">
-								<a href="#">지역/즐길거리</a>
-								<ul class="dropdown">
-									<li><a href="/location/location" style="margin-bottom: 2px;">지역</a></li>
-									<li class="has-children">
-										<a href="#">즐길거리</a>
-										<ul class="dropdown">
-											<li><a href="/food/eat/">한국 대표 음식</a></li>
-											<li><a href="/heritage/culture/">한국 문화 유산</a></li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li><a href="/board/blist/">게시판</a></li>
-							<li><a href="/package/plist">패키지</a></li>
-							<li><a href="/shop/hotels/">숙박시설</a></li>
-								{% if request.session.session_m_auth == 0%}
-									<li><a href="/admin/">admin</a></li>
-								{% else %}
-								{% endif %}
-						</ul>
-					</div>
-					<div class="col-6 col-lg-3 text-lg-end">
-						<ul class="js-clone-nav d-none d-lg-inline-block text-end site-menu ">
-							{% if not request.session.session_m_id %}
-							<li class="cta-button"><a href="/member/login/">로그인</a></li>
-							{% else %}
-							<li class="cta-button"><a href="/member/logout/">로그아웃</a></li>
-							{% endif %}
-						</ul>
-
-						<a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
-							<span></span>
-						</a>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-	</nav>
-
-	<!--사이드 바-->
-	<div id="right_fixed">
-		<div class="ai_chatting"></div>
-		<div class="top"><a href="javascript:void(0);" onclick="openSmallWindow('/chatbot/bot/')">SKYNET과 대화</a></div>
-	</div>
-	<!--사이드 바-->
-	<script>
-	// 사이드바 자바스크립트
-		function openSmallWindow(url) {
-			window.open(url, 'AIChatWindow', 'width=470,height=900');
-		}
-		const video = document.getElementById('backvd');
-		const controlBtn = document.getElementById('vdcont');
-	// 사이드바 자바스크립트
-	</script>
-  <!--헤더-->	
   <div class="hero overlay">
 		<div class="img-bg rellax">
 			<img src="/static/images/package/package_image.webp" alt="Image" class="img-fluid">
@@ -156,101 +78,19 @@
 
 					<h1 class="heading" data-aos="fade-up">결제 성공!!</h1>
 					<p class="mb-4" data-aos="fade-up" style="font-size: 15px;">여행은 특별한 추억을 만드는 여정입니다. KOAT를 선택해 주셔서 진심으로 감사드리며, 고객님의 여행이 행복과 즐거움으로 가득하길 기원합니다.</p>
-
-					<div data-aos="fade-up">
-						<a href="https://www.youtube.com/watch?v=5n-e6lOhVq0" class="play-button glightbox3 w-100 text-center" >
-							<div class="d-inline-flex align-items-center ">
-							</div>
-						</a>
+					<div id = 'sBody'>
+						<div class = 'sContent'>
+							<a href="#" onclick="window.close(); return false;">닫기</a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-  <!-- pList 부분 -->
-  <div id = 'sBody'>
-    <div class = 'sContent'>
-      <h4>추가 문의 사항이 있으시면 언제든지 저희에게 연락해 주세요. 즐겁고 안전한 여행 되시길 바랍니다.</h4>
-      <a href='/'>결제 완료</a>
-    </div>
-  </div>
-
-  <!-- pList 부분 -->
-
-  <!-- Footer 부분 -->
-
-	<div class="site-footer">
-		<div class="container">
-
-			<div class="row">
-
-				<div class="col-lg-2 ml-auto">
-					<div class="widget">
-						<h3>유용한 링크</h3>
-						<ul class="list-unstyled float-left links">
-							<li><a href="https://www.skyscanner.co.kr/">비행기 예매</a></li>
-							<li><a href="https://www.kobus.co.kr/main.do">버스 예매</a></li>
-							<li><a href="https://www.mibankins.com/travel/">여행자 보험</a></li>
-							<li><a href="https://www.weather.go.kr/w/index.do">한국 날씨</a></li>
-							<li><a href="#">Q&A</a></li>
-						</ul>
-					</div> <!-- /.widget -->
-				</div> <!-- /.col-lg-3 -->
-
-				<div class="col-lg-2">
-					<div class="widget">
-						<h3>사이트 기능</h3>
-						<ul class="list-unstyled float-left links">
-							<li><a href="#">About us</a></li>
-							<li><a href="#">Services</a></li>
-							<li><a href="#">News</a></li>
-							<li><a href="#">Careers</a></li>
-							<li><a href="#">Contact</a></li>
-						</ul>
-					</div> <!-- /.widget -->
-				</div> <!-- /.col-lg-3 -->
 
 
-				<div class="col-lg-3">
-					<div class="widget">
-						<h3>회사 주소</h3>
-						<address>	101, Gasan digital 2-ro, Geumcheon-gu, Seoul, Republic of Korea</address>
-						<ul class="list-unstyled links mb-4">
-							<li><a href="tel://11234567890">Tel : +82(02)-2025-8523</a></li>
-							<li><a href="tel://11234567890">Fax : +82(02)-2101-2154</a></li>
-							<li><a href="mailto:info@mydomain.com">kosmo@ikosmo.co.kr</a></li>
-						</ul>
-					</div> <!-- /.widget -->
-				</div> <!-- /.col-lg-3 -->
-
-				<div class="col-lg-4">
-					<div class="widget">
-						<h3>연락</h3>
-						<ul class="list-unstyled social icoct">
-							<li><a href="https://www.instagram.com/kto9suk9suk"><span class="icon-instagram"></span></a></li>
-							<li><a href="https://x.com/kor_visitkorea"><span class="icon-twitter"></span></a></li>
-							<li><a href="https://www.facebook.com/welcometoKTO"><span class="icon-facebook"></span></a></li>
-							<li><a href="https://open.spotify.com/track/1IlMgzxAtjoNUPUmp8Omki?si=3d0feb86bdc54c9b"><span class="icon-spotify"></span></a></li>
-							<li><a href="#"><span class="icon-pinterest"></span></a></li>
-							<li><a href="#"><span class="icon-dribbble"></span></a></li>
-						</ul>
-					</div> <!-- /.widget -->
-					{% comment %} <div class="widget">
-						<h3>About Passport<span class="text-primary">.</span> </h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-					</div> <!-- /.widget -->
-				</div> <!-- /.col-lg-3 --> {% endcomment %}
-
-			</div> <!-- /.row -->
-
-			<div class="row mt-5">
-				<div class="col-12 text-center">
-					<p class="mb-0">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> <!-- License information: https://untree.co/license/ -->
-					</p>
-				</div>
-			</div> <!-- /.container -->
-		</div> <!-- /.site-footer -->
+ 
 
 		<!-- Preloader -->
 		<div id="overlayer"></div>
