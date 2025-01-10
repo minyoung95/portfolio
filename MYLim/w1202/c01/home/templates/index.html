@@ -59,7 +59,7 @@
 							<li class="has-children">
 								<a href="#">지역/즐길거리</a>
 								<ul class="dropdown">
-									<li><a href="/location/location">지역</a></li>
+									<li><a href="/location/location" style="margin-bottom: 2px;">지역</a></li>
 									<li class="has-children">
 										<a href="#">즐길거리</a>
 										<ul class="dropdown">
@@ -67,11 +67,10 @@
 											<li><a href="/heritage/culture/">한국 문화 유산</a></li>
 										</ul>
 									</li>
-									<li><a href="#">Menu Three</a></li>
 								</ul>
 							</li>
 							<li><a href="/board/blist/">게시판</a></li>
-							<li><a href="/package/plist/">패키지</a></li>
+							<li><a href="/package/plist">패키지</a></li>
 							<li><a href="/shop/hotels/">숙박시설</a></li>
 								{% if request.session.session_m_auth == 0%}
 									<li><a href="/admin/">admin</a></li>
