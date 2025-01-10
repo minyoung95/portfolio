@@ -1385,7 +1385,7 @@ span.searchStyleSelectBox.changed{background-color: #fff;}
 
 }
 
-/*신규 스타일*/
+/*신규 스타일
 .t_table1, .t_table2  {
   font-family: "Black Han Sans", serif;
   font-size:25px;
@@ -1399,15 +1399,67 @@ span.searchStyleSelectBox.changed{background-color: #fff;}
   margin: 20px 30%;
 }
 #img_td {
-    width: 150px; /* 셀의 너비 */
-    height: 150px; /* 셀의 높이 */
-    text-align: center;
+  width: 150px;
+  height: 150px;
+  text-align: center;
 }
 .t_img {
-    width: calc(100% - 20px); /* 셀 너비에서 좌우 여백만큼 크기 감소 */
-    height: calc(100% - 10px); /* 셀 높이에서 위아래 여백만큼 크기 감소 */
-    object-fit: cover; /* 이미지 비율 유지하면서 셀 채우기 */
-    margin: 10px; /* 상하좌우 여백 10px */
+  width: calc(100% - 20px); 
+  height: calc(100% - 10px);
+  object-fit: cover; 
+  margin: 10px; 
+}
+#title_icon{
+  margin: 15px 50% ;
+  
+}
+*/
+
+.t_table1 {
+  font-family: "Black Han Sans", serif;
+  font-size: 25px;
+}
+.t_table2 {
+  font-family: "Black Han Sans", serif;
+  font-size: 25px;
+  background-color: #F7F7F7;
+}
+
+/* 테이블 그리드 스타일 */
+#l_city {
+  width: 80%;
+  border-collapse: collapse;
+  margin: 0 auto; /* 중앙 정렬 */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 항목 너비 최소 200px */
+  gap: 20px;
+  justify-content: center;
+  padding-left: 50px;
+}
+
+/* 개별 그리드 셀 */
+#img_td {
+  width: 300px;
+  height: 200px;
+  text-align: center;
+  opacity: 0; /* 초기 상태에서 보이지 않음 */
+  transform: translateX(-50px); /* 왼쪽으로 살짝 이동 */
+  transition: all 0.5s ease-in-out; /* 애니메이션 효과 */
+}
+
+/* 스크롤 이벤트 발생 시 요소가 나타남 */
+#img_td.visible {
+  opacity: 1;
+  transform: translateX(0); /* 원래 위치로 이동 */
+}
+
+/* 이미지 스타일 */
+.t_img {
+  object-fit: cover;
+  border-radius: 8px; /* 둥근 모서리 */
+  width: calc(100% - 20px); 
+  height: calc(100% - 10px);
+  margin: 10px; 
 }
 #title_icon{
   margin: 15px 50% ;
