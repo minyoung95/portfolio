@@ -14,6 +14,7 @@ urlpatterns = [
     path('chatbot/',include('chatbot.urls')),
     path('package/',include('package.urls')),
     path('shop/',include('shop.urls')),
+    path('heritage/',include('heritage.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
