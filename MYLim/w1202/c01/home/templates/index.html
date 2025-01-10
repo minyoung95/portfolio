@@ -83,6 +83,7 @@
 							{% if not request.session.session_m_id %}
 							<li class="cta-button"><a href="/member/login/">로그인</a></li>
 							{% else %}
+							<li href="/member/meminfo/" style="color: white; font-weight: 500;">회원정보</li>
 							<li class="cta-button"><a href="/member/logout/">로그아웃</a></li>
 							{% endif %}
 						</ul>
