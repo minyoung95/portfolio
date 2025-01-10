@@ -152,7 +152,7 @@
 						{% load humanize %}
 						<p class="product-price">{{ list.p_price|intcomma }}원</p>
 						<!-- 결제 버튼 -->
-						<form method="POST" action="{% url 'package:kakao_pay_request' %}">
+						<form method="POST" action="{% url 'package:kakao_pay_request' %}"  onsubmit="openPaymentWindow(event, this)">
 							<input type="hidden" name="p_name" value="{{ list.p_name }}">
 							<input type="hidden" name="p_price" value="{{ list.p_price }}">
 							{% csrf_token %}
