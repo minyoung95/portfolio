@@ -62,7 +62,7 @@
 			if (pw.length < 4 || pw.length > 15) {
 				$(this).css("border-color", "red");
 				$("#pwft").css("color", "red");
-				$("#pwft").text("4~6자리로 입력해 주세요.")
+				$("#pwft").text("4~15자리로 입력해 주세요.")
 			}else if (pw.search(/\s/) != -1) {
 				$(this).css("border-color", "red");
 				$("#pwft").css("color", "red");
