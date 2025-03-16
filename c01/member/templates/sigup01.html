@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block container-block  %}
+	
+
+<div class="hero overlay">
+	<div class="img-bg rellax">
+		<img src="/static/images/hero_2.jpg" alt="Image" class="img-fluid">
+	</div>
+	<div class="container">
+		<div class="row align-items-center justify-content-start">
+			<div class="col-lg-6 mx-auto text-center">
+				<h1 class="heading" data-aos="fade-up">Sign up</h1>
+				<p data-aos="fade-up">Koat의 회원이 되어 더 많은 서비스를 누려보세요!</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	$(document).ready(function () {
+		// 전체 동의 클릭
+		$(".agreeall[value='yes']").click(function () { 
+			if (confirm('전부 동의하십니까?')) {
+				$(".dcchk").prop('checked', true);
+				$(".ndcchk").prop('checked', false);
+			};
+		});
+
+	  // 전체 비동의 클릭
+		$(".agreeall[value='no']").click(function () { 
+			if (confirm('전부 비동의하십니까?')) {
+				$(".ndcchk").prop('checked', true);
+				$(".dcchk").prop('checked', false);
+			};
+		});
+
+		// 개별 동의 상태 변경 시 전체 동의/비동의 동작 업데이트	
+		$(".dcchk, .ndcchk").not(".agreeall").on("change", function () {
+			const allAgreed = $(".dcchk").not(".agreeall").length === $(".dcchk:checked").not(".agreeall").length;
+			const allDisagreed = $(".ndcchk").not(".agreeall").length === $(".ndcchk:checked").not(".agreeall").length;
+
+			$(".agreeall[value='yes']").prop('checked', allAgreed);
+			$(".agreeall[value='no']").prop('checked', allDisagreed);
+		});
+
+	}); // jquery
+	
+	function dpchk(){ // 다음단계 클릭
+		$(".dcchk").each(function(){ //체크 확인
+			chk = 1
+			if ($(this).is(":checked")) {   
+				chk += 1                          //  동의를 한 경우
+			} else {				
+				chk -= 1													// 동의가 안된경우
+			};
+		});
+		if(chk < 2){                          // 체크에 따른 값으로 판별
+			alert('모두 동의를 해 주셔야 합니다.')	
+		}else{
+			alert('다음 단계로 넘어갑니다')
+			location.href = "/member/sigup02/"
+		}
+	}; // 다음단계 클릭
+
+	</script>
+
+
+<div class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12"	data-aos="fade-up" data-aos-delay="0">
+				<h2 class="heading mb-5">Member Policy</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+				<form action="#">
+					<div class="row">
+						<div class="col-12 mb-3 polgd">
+							<p class="form-control">약관을 잘 읽고 동의해주시기 바랍니다.</p>
+						</div>
+					<div class="all_bd">	
+						<div class="col-6 mb-3">
+								<p class="form-control agreebox">(필수) KOAT 이용 약관</p>
+						</div>
+						<div class="col-6 mb-3">
+								<label><input class="dcchk agree1" type="radio" name="agree1" value="yes">동의</label>
+								<label><input class="ndcchk agree1" type="radio" name="agree1" value="no">비동의</label>
+						</div>
+				</div>
+			<p></p>
+			<p></p>
+			<div class="col-12 mb-3">
+				<textarea readonly cols="30" rows="7" class="form-control">
+					****이용약관****
+					제1장 총 칙
+																																	제1조(목적)
+① 본 약관은 주식회사 KOAT(이하 "회사")이 온라인 사이트(이하 "웹사이트") 및 응용프로그램(이하 "어플리케이션")에서 제공하는 서비스(이하 "서비스")를 이용자(이하 "이용자")가 이용함에 있어 "회사"와 "이용자" 간의 권리∙ 의무, 이용조건, 기타 책임사항 등에 관한 사항을 규정함을 목적으로 합니다.
+
+제2조 (용어의 정의)
+① 이 약관에서 사용하는 용어의 정의는 다음과 같습니다.
+1. 웹사이트: 상품 또는 용역의 거래를 위하여 "회사"가 제공하는 실시간 전자상거래 시스템과 그 운영을 위한 웹사이트로 mota.koat.com 이 있으며, "회사"의 정책에 따라 추가/변동될 수 있습니다.
+2. 어플리케이션: "이용자"가 단말기에 내려 받아 설치함으로써 단말기 상에서 "회사"가 제공하는 서비스를 이용할 수 있도록 하는 프로그램입니다.
+3. 이용자: 본 규정에 따라 "회사"가 제공하는 서비스를 이용하는 "회원" 또는 "비회원"을 말합니다.
+4. 회원: "회사"에 개인정보를 제공하고 "회원"자격을 부여 받은 자로 "회사"의 정보를 지속적으로 제공받으며 "회사"에서 제공한 서비스를 이용할 수 있는 자를 말합니다. 누구나 가입할 수 있습니다.
+5. 비회원: "회원"에 가입하지 않고 "회사"가 제공하는 정보 및 서비스를 이용하는 자를 말합니다.
+6. 구매자(대표 예약자): 상품 등을 구입할 의사를 밝힌 "회원"또는 "비회원"중에 개인 또는 단체를 대표하여 구매행위를 한 자를 말합니다.
+7. 판매사(업체): "회사"가 제공하는 중개 판매 서비스를 통하여 상품을 판매할 목적으로 회사와 서비스 이용계약을 체결한 자를 말합니다.
+8. 개인정보: 성명, 생년월일, 전자우편, 휴대전화번호 등 특정 개인을 식별할 수 있는 정보를 말합니다.
+9. 아이디(ID): "회원"의 식별과 서비스 이용을 위해 "회원"이 직접 입력, 설정하여 "회사" 시스템에 등록한 인식 문자를 말합니다.
+10. 비밀번호(Password): "회원" 본인의 적법한 접근인지를 확인하고 "회원"정보, 거래 내역 등의 비밀을 보호하기 위해 "회원"이 직접 입력, 설정하여 "회사" 시스템에 등록한 영문, 숫자, 특수 문자의 조합을 말합니다.
+11. 직접판매 상품: "회사(본사와 지사 포함)"의 "웹사이트" 및 "어플리케이션"을 통하여 직접 판매되는 것으로서 타 업체와 연동되지 않은 판매 상품을 말합니다.
+12. 중개 판매 상품: "회사(본사와 지사 포함)"의 "웹사이트" 및 "어플리케이션"을 통해 "판매사(업체)"의 상품과 "구매자"를 중개하는 것으로서, "판매사(업체)"와 연동하여 판매하는 상품을 말합니다.
+13. 포인트(P): "회사"가 "회사"의 "직접판매 상품"을 구매한 "회원"에게 구매금액의 일정률을 포인트로 환산하여 제공하는 서비스를 말하며, "회사"가 정한 방법에 따라 사용할 수 있습니다. "포인트" 세부 방침은 "회사"의 정책에 따라 달라질 수 있습니다.
+14. 할인쿠폰(쿠폰): 상품을 구매할 때 쿠폰에 표시된 금액 또는 비율만큼 구매가격을 할인 받을 수 있는 회사 전용의 온라인/모바일 "할인쿠폰"을 말합니다. "할인쿠폰"의 종류 및 내용은 "회사"의 정책에 따라 달라질 수 있습니다.
+15. 고객 리뷰: 상품 구매 후 해당 상품에 대한 종합적인 평가를 기록한 글, 이미지, 영상물, 평가점수 등의 게시물을 말합니다.
+16. 본인확인: 휴대전화 인증(또는 i-PIN 인증)을 통하여 "회원"이 본인인지 여부를 확인하는 것을 의미합니다.
+17. 영업일: "회사"가 정상적으로 서비스를 제공한 날로서 토요일, 일요일 및 법정 공휴일을 제외한 날을 말합니다.
+② 제1항에서 정의되지 않은 용어의 의미는 관련 법령 및 일반적인 거래관행을 따릅니다.
+						</textarea>
+				</div>
+				<div class="all_bd">	
+						<div class="col-6 mb-3">
+								<p class="form-control agreebox">(필수) 개인정보 수집 및 이용</p>
+						</div>
+						<div class="col-6 mb-3">
+								<label><input class="dcchk agree2" type="radio" name="agree2" value="yes">동의</label>
+								<label><input class="ndcchk agree2" type="radio" name="agree2" value="no">비동의</label>
+						</div>
+				</div>
+				<p></p>
+				<p></p>
+				<div class="col-12 mb-3">
+						<textarea readonly cols="30" rows="7" class="form-control">
+아이디, 이메일, 비밀번호, 이름(실명), 별명, 성별을 회원 탈퇴 완료 시 까지
+
+전자상거래 등에서의 소비자보호에 관한 법률 등에 의해 보관할 것입니다.
+
+동의를 거부할 권리 및 동의 거부에 따른 불이익
+
+귀하는 위의 (필수) 개인정보 수집 및 이용 동의를 거부할 권리가 있습니다.
+그러나 동의를 거부할 경우 회원가입이 제한 될 수 있으나,
+글 좋아요 및 게시판 글 작성/ 열람 이외에는 제한이 없습니다.
+						</textarea>
+				</div>
+				<div class="all_bd">
+						<div class="col-6 mb-3">
+								<p class="form-control agreebox">약관 전체 동의</p>
+						</div>
+						<div class="col-6 mb-3">
+								<label><input class="dcchk agreeall" type="radio" name="agreeall" value="yes">동의</label>
+								<label><input class="ndcchk agreeall" type="radio" name="agreeall" value="no">비동의</label>
+						</div>
+				</div>
+				<p></p>
+				<p></p>
+						<div class="col-12">
+							<input type="button" onclick="dpchk()" value="다음 단계" class="btn btn-primary dpchk">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock container-block  %}

@@ -1,0 +1,435 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="csrf-token" content="{{ csrf_token }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="favicon.png">
+
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap5" />
+	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+	<!-- flatpickr CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+	<!-- jQuery (선택 사항, 다른 부분에서 사용하는 경우) -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- flatpickr JS -->
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+	<link rel="stylesheet" href="{% static 'fonts/icomoon/style.css'%}">
+	<link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css'%}">
+
+	<link rel="stylesheet" href="{% static 'css/tiny-slider.css'%}">
+	<link rel="stylesheet" href="{% static 'css/aos.css'%}">
+	<link rel="stylesheet" href="{% static 'css/flatpickr.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/glightbox.min.css'%}">
+	<link rel="stylesheet" href="{% static 'css/style.css'%}">
+  <title>KOAT - 코리아트레블</title>
+
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<style>
+
+		.hotel_form{
+			width: 120px;
+			border-radius: 10px;
+			display: inline-block;
+			margin-bottom: 20px;
+		}
+		#checkDay{
+			margin-right: 150px;
+		}
+		.checkDay{
+			width: 250px;
+		}
+		.form-group {
+			width: 200px;
+			display: inline-block;  /* 각 form-group을 가로로 배치 */
+			margin-right: 15px;     /* 오른쪽에 여백 추가 */
+		}
+
+		/* 모든 form-group의 자식 요소인 label, input, select 등이 가로로 정렬되도록 */
+		.form-group label,
+		.form-group select,
+		.form-group input {
+				display: inline-block;  /* 각 label, input, select을 가로로 배치 */
+				vertical-align: middle; /* 세로 정렬 */
+		}
+	</style>
+
+</head>
+<body>
+
+	<input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+
+	<div class="site-mobile-menu site-navbar-target">
+		<div class="site-mobile-menu-header">
+			<div class="site-mobile-menu-close">
+				<span class="icofont-close js-menu-toggle"></span>
+			</div>
+		</div>
+		<div class="site-mobile-menu-body"></div>
+	</div>
+
+	<nav class="site-nav mt-3">
+		<div class="container">
+
+			<div class="site-navigation">
+				<div class="row">
+					<div class="col-6 col-lg-3">
+						<a href="/" class="logo m-0 float-start">KOAT</a>
+					</div>
+					<div class="col-lg-6 d-none d-lg-inline-block text-center nav-center-wrap">
+						<ul class="js-clone-nav  text-center site-menu p-0 m-0">
+							<li class="active"><a href="/">Home</a></li>
+							<li class="has-children">
+								<a href="#">지역/즐길거리</a>
+								<ul class="dropdown">
+									<li><a href="/location/location" style="margin-bottom: 2px;">지역</a></li>
+									<li class="has-children">
+										<a href="#">즐길거리</a>
+										<ul class="dropdown">
+											<li><a href="/food/eat/">한국 대표 음식</a></li>
+											<li><a href="/heritage/culture/">한국 문화 유산</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><a href="/board/blist/">게시판</a></li>
+							<li><a href="/package/plist">패키지</a></li>
+							<li><a href="/shop/hotels/">숙박시설</a></li>
+								{% if request.session.session_m_auth == 0%}
+									<li><a href="/admin/">admin</a></li>
+								{% else %}
+								{% endif %}
+						</ul>
+					</div>
+					<div class="col-6 col-lg-3 text-lg-end">
+						<ul class="js-clone-nav d-none d-lg-inline-block text-end site-menu ">
+							{% if not request.session.session_m_id %}
+							<li class="cta-button"><a href="/member/login/">로그인</a></li>
+							{% else %}
+							<li class="cta-button"><a href="/member/logout/">로그아웃</a></li>
+							{% endif %}
+						</ul>
+
+						<a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" data-toggle="collapse" data-target="#main-navbar">
+							<span></span>
+						</a>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</nav>
+
+	<!--사이드 바-->
+	<div id="right_fixed">
+		<div class="ai_chatting"></div>
+		<div class="top"><a href="javascript:void(0);" onclick="openSmallWindow('/chatbot/bot/')">SKYNET과 대화</a></div>
+	</div>
+	<!--사이드 바-->
+	<script>
+	// 사이드바 자바스크립트
+		function openSmallWindow(url) {
+			window.open(url, 'AIChatWindow', 'width=470,height=900');
+		}
+		const video = document.getElementById('backvd');
+		const controlBtn = document.getElementById('vdcont');
+	// 사이드바 자바스크립트
+	</script>
+  <!--헤더-->	
+  <div class="hero overlay">
+		<div class="img-bg rellax">
+			<img src="/static/images/shop_main(1).jpg" alt="Image" class="img-fluid">
+		</div>
+		<div class="container">
+			<div class="row align-items-center justify-content-start">
+				<div class="col-lg-6 mx-auto text-center">
+
+					<h1 class="heading" data-aos="fade-up">Hotel</h1>
+					<p class="mb-4" data-aos="fade-up" style="font-size: 30px;">현지의 예약 가능한 호텔 중 KOAT가 엄선한<br/> 호텔을 알려드립니다.</p>
+
+					<div data-aos="fade-up">
+            <a href="https://www.agoda.com/ko-kr/?cid=1844104&ds=ZSDqvtarS5VJu5HZ" target="_blank" style="font-weight: 600; color: azure;">
+							<div class="d-inline-flex align-items-center ">
+								<span class="icon-button me-3">
+									<span class="icon-play"></span>
+								</span>
+								<span class="caption">예약 사이트로 이동</span>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  <!-- 호텔 데이터 -->
+	<div class="section">
+		<div class="container">
+	
+			<div class="col-12">
+				<form action="{% url 'shop:hotels' %}" method="post" name="hotels">
+					<div id="hotels_form">
+						<div class="form-group">
+							<label for="citySelect">도시</label><br/>
+							<select id="citySelect" class="form-control hotel_form">
+									<option value="">도시를 선택하세요</option>
+									<option value="14690">서울</option>
+									<option value="17172">부산</option>
+									<option value="17234">인천</option>
+									<option value="17233">대전</option>
+									<option value="17232">대구</option>
+									<option value="10137">울산</option>
+									<option value="19042">광주</option>
+									<option value="213180">세종</option>
+									<!-- 추가로 도시를 선택할 수 있는 옵션 추가 -->
+							</select>
+						</div>
+
+						<div class="form-group" id="checkDay">
+							<label for="checkInOutSelect">체크인 / 체크아웃 날짜</label><br/>
+							<input type="text" id="checkInOutSelect" class="form-control hotel_form checkDay" placeholder="체크인 및 체크아웃 날짜를 선택하세요">
+						</div>
+
+						<div class="form-group">
+								<label for="roomsSelect">객실</label><br/>
+								<select id="roomsSelect" class="form-control hotel_form">
+									<option value="" disabled selected>객실 수를 선택하세요</option>
+									{% for i in room_range %}
+									<option value="{{ i }}">{{ i }}개</option>
+									{% endfor %}
+										<!-- 방 개수 선택 옵션 추가 -->
+								</select>
+						</div>
+						<div class="form-group">
+								<label for="adultsSelect">성인</label><br/>
+								<select id="adultsSelect" class="form-control hotel_form">
+									<option value="" disabled selected>성인 명수를 선택하세요</option>
+									{% for j in adult_range %}
+									<option value="{{ j }}">{{ j }}명</option>
+									{% endfor %}
+										<!-- 어른 명수 선택 옵션 추가 -->
+								</select>
+						</div>
+						<div class="form-group">
+								<label for="childrenSelect">아동</label><br/>
+								<select id="childrenSelect" class="form-control hotel_form">
+									<option value="" disabled selected>아동 명수를 선택하세요</option>
+									{% for k in children_range %}
+									<option value="{{ k }}">{{ k }}명</option>
+									{% endfor %}
+										<!-- 아이 명수 선택 옵션 추가 -->
+								</select>
+						</div>
+					</div>
+					<br/>
+					<input type="button" id="hotelBtn" value="Search" class="btn btn-primary dpchk">
+				</form>
+			</div>
+			<br>
+	
+			<div class="row flex-container" id="hotel_list">
+				<!-- 여기에 호텔 데이터가 추가됩니다 -->
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$(document).ready(function() {
+
+			// flatpickr를 초기화하여 체크인 / 체크아웃 날짜 선택 기능 추가
+			flatpickr("#checkInOutSelect", {
+				mode: "range", // 날짜 범위 선택
+				dateFormat: "Y-m-d", // 날짜 형식
+				minDate: "today", // 오늘 날짜 이전은 선택 불가
+			});
+
+			$("#hotelBtn").off('click').on('click', function() {
+				loadHotelData();
+			function getCSRFToken() {
+				return $('#csrf_token').val();
+			}
+	
+			function loadHotelData() {
+				const cityName = $("#citySelect").val();
+				const checkInOut = $("#checkInOutSelect").val();
+				const rooms = $("#roomsSelect").val();
+				const adults = $("#adultsSelect").val();
+				const children = $("#childrenSelect").val();
+				const hotelList = $("#hotel_list");
+				hotelList.innerHTML = '<p>로딩 중...</p>'; // 로딩 메시지 추가
+				
+				// const [cityName, checkIn, checkOut, rooms, adults, children] = inputData.split(',').map(x => x.trim());
+				/*
+				if (!cityName || !checkIn || !checkOut || !rooms || !adults || !children) {
+				hotelList.html('<p>모든 항목을 선택해주세요.</p>');
+				return;
+			}*/
+			
+				const [checkIn, checkOut] = checkInOut.split(" to ");
+
+				fetch('/shop/api/hotels/', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-CSRFToken': getCSRFToken() // CSRF 토큰 추가
+						 // 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36'
+					},
+					body: JSON.stringify({
+						city_name: cityName,
+						check_in: checkIn,
+						check_out: checkOut,
+						rooms: rooms,
+						adults: adults,
+						children: children
+					})
+				})
+				.then(response => {
+					if (!response.ok) {
+						return response.text().then(text => { throw new Error(`에러 발생: ${text}`); });
+					}
+					return response.json();
+				})
+				.then(data => {
+					hotelList.html(''); // 기존 데이터를 지우기
+					if (!data.data.length) {
+							// 조건에 부합하는 호텔이 없는 경우
+							hotelList.html('<h2 style="color: gray;">조건에 부합하는 호텔이 없습니다.</h2>');
+							return; // 더 이상 아래 코드를 실행하지 않음
+					}
+					if (data.status === 'error') {
+						throw new Error(data.message);
+					}	
+					
+					data.data.forEach((hotel, index) => {
+						const div = document.createElement('div');
+						div.classList.add('col-6', 'col-sm-6', 'col-md-6', 'col-lg-3', 'mb-4');
+						div.innerHTML = `
+						<div class="media-entry" id="searchhotellist">
+													<img src="${hotel.hlink}" alt="Image" class="img-fluid" id="hotelimg" style="width: 260px; height: 190px;">
+													<div class="bg-white m-body">
+														<h3><a>${hotel.name}</a></h3>
+														<p>${hotel.cost}₩</p>
+														<a href="https://agoda.com/${hotel.hdirect}" class="btn btn-primary" id="hoteltxt" target="_blank">바로가기</a>
+														</div>
+														</div>
+								`;
+								hotelList.append(div);
+							});
+						})
+						.catch(error => {
+							hotelList.innerHTML = `<p>에러 발생: ${error.message}</p>`;
+							console.error('에러 발생:', error);
+						});
+					}
+			});
+		}); //제이쿼리
+	</script>
+
+  <!-- 호텔 데이터 -->
+
+  <!-- Footer 부분 -->
+
+	<div class="site-footer">
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-lg-2 ml-auto">
+					<div class="widget">
+						<h3>유용한 링크</h3>
+						<ul class="list-unstyled float-left links">
+							<li><a href="https://www.skyscanner.co.kr/">비행기 예매</a></li>
+							<li><a href="https://www.kobus.co.kr/main.do">버스 예매</a></li>
+							<li><a href="https://www.mibankins.com/travel/">여행자 보험</a></li>
+							<li><a href="https://www.weather.go.kr/w/index.do">한국 날씨</a></li>
+							<li><a href="#">Q&A</a></li>
+						</ul>
+					</div> <!-- /.widget -->
+				</div> <!-- /.col-lg-3 -->
+
+				<div class="col-lg-2">
+					<div class="widget">
+						<h3>사이트 기능</h3>
+						<ul class="list-unstyled float-left links">
+							<li><a href="#">About us</a></li>
+							<li><a href="#">Services</a></li>
+							<li><a href="#">News</a></li>
+							<li><a href="#">Careers</a></li>
+							<li><a href="#">Contact</a></li>
+						</ul>
+					</div> <!-- /.widget -->
+				</div> <!-- /.col-lg-3 -->
+
+
+				<div class="col-lg-3">
+					<div class="widget">
+						<h3>회사 주소</h3>
+						<address>	101, Gasan digital 2-ro, Geumcheon-gu, Seoul, Republic of Korea</address>
+						<ul class="list-unstyled links mb-4">
+							<li><a href="tel://11234567890">Tel : +82(02)-2025-8523</a></li>
+							<li><a href="tel://11234567890">Fax : +82(02)-2101-2154</a></li>
+							<li><a href="mailto:info@mydomain.com">kosmo@ikosmo.co.kr</a></li>
+						</ul>
+					</div> <!-- /.widget -->
+				</div> <!-- /.col-lg-3 -->
+
+				<div class="col-lg-4">
+					<div class="widget">
+						<h3>연락</h3>
+						<ul class="list-unstyled social icoct">
+							<li><a href="https://www.instagram.com/kto9suk9suk"><span class="icon-instagram"></span></a></li>
+							<li><a href="https://x.com/kor_visitkorea"><span class="icon-twitter"></span></a></li>
+							<li><a href="https://www.facebook.com/welcometoKTO"><span class="icon-facebook"></span></a></li>
+							<li><a href="https://open.spotify.com/track/1IlMgzxAtjoNUPUmp8Omki?si=3d0feb86bdc54c9b"><span class="icon-spotify"></span></a></li>
+							<li><a href="#"><span class="icon-pinterest"></span></a></li>
+							<li><a href="#"><span class="icon-dribbble"></span></a></li>
+						</ul>
+					</div> <!-- /.widget -->
+					{% comment %} <div class="widget">
+						<h3>About Passport<span class="text-primary">.</span> </h3>
+						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+					</div> <!-- /.widget -->
+				</div> <!-- /.col-lg-3 --> {% endcomment %}
+
+			</div> <!-- /.row -->
+
+			<div class="row mt-5">
+				<div class="col-12 text-center">
+					<p class="mb-0">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> <!-- License information: https://untree.co/license/ -->
+					</p>
+				</div>
+			</div> <!-- /.container -->
+		</div> <!-- /.site-footer -->
+
+		<!-- Preloader -->
+		<div id="overlayer"></div>
+		<div class="loader">
+			<div class="spinner-border text-primary" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
+		</div>
+
+
+		<script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+		<script src="{% static 'js/tiny-slider.js'%}"></script>
+		<script src="{% static 'js/aos.js'%}"></script>
+		<script src="{% static 'js/navbar.js'%}"></script>
+		<script src="{% static 'js/counter.js'%}"></script>
+		<script src="{% static 'js/rellax.js'%}"></script>
+		<script src="{% static 'js/flatpickr.js'%}"></script>
+		<script src="{% static 'js/glightbox.min.js'%}"></script>
+		<script src="{% static 'js/custom.js'%}"></script>
+	</body>
+	</html>
